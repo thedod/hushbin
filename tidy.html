@@ -5,7 +5,7 @@
 <head>
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
-  <!-- meta http-equiv="Content-Type" content="text/html; charset=UTF-8" / -->
+  <!-- this is not utf-8 on purpose -->
 
   <title>HushBin - Tweet your secrets</title>
   <style type="text/css">
@@ -30,7 +30,7 @@
   .size3of5{width:60%;}
   .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
   /* Own overides */
-  .page{width:750px}
+  .page{width:auto}
   .unit{margin:2px;padding:4px}
   /* Own styles */
   a {text-decoration:none}
@@ -172,15 +172,18 @@
   is_read = m=='read';
   set_visibility(['read','to-write'],is_read);
   set_visibility(['write','to-read'],!is_read);
-  if (!is_read) { // save some hassle when replying
+  if (is_read) { // save some hassle when replying
+  $$('in-cipher').focus();} else {
+  $$('out-key').focus();
   $$('out-cipher').value='';
   $$('pastebin_result').src='about:blank'; /* this should be the only "src" in this file */}
-  return true;}
+  return false;}
   function validate_pastebin_form() {
   if ($$('out-cipher').value.trim().length) {
   return true;}
   show_message("Encrypt something first");
   return false;}
+  function nop() {return false;};
   function run_if_enter(f) {if (window.event && window.event.keyCode == 13) { return f() && false; }; return true;}
   //]]>
   </script>
@@ -254,7 +257,8 @@
         <legend>Encryption</legend>
 
         <form method="post" target="pastebin_result" action=
-        "http://pastebin.com/api_public.php" onsubmit=
+        "http://pastebin.com/api_public.php" onkeypress=
+        "return run_if_enter(nop)" onsubmit=
         "return validate_pastebin_form()">
           <div class="line">
             <div class="unit size1of1 cryptUnit lastUnit">
