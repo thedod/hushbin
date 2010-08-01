@@ -1,1 +1,239 @@
-I'll be back
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- meta http-equiv="Content-Type" content="text/html; charset=UTF-8" / -->
+<title>HushBin - Tweet your secrets</title>
+<style type="text/css">
+/* shamelessly taken from http://oocss.org :) */
+body{font-family:"Myriad Pro","Segoe UI",Helvetica, Arial, sans-serif;}
+body{_text-align:center;}/* IE5.5 */
+.main{display:table-cell;*display:block;width:auto;}
+.body,.main{*zoom:1;}
+.body:after,.main:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
+.page{margin:0 auto;width:950px;_text-align:left;} /* wraps other template elems to set width */ /* text-align IE5.5 */
+@media screen and (max-width: 319px) {.unit{float: none !important; width: auto !important;}}
+.line:after,.lastUnit:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
+.line{*zoom:1;}
+.unit{float:left;}
+.size1of1{float:none;}
+.size1of2{width:50%;}
+.size1of3{width:33.33333%;}
+.size2of3{width:66.66666%;}
+.size1of4{width:25%;}
+.size2of5{width:40%;}
+.size3of5{width:60%;}
+.lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
+/* Own overides */
+.page{width:750px}
+.unit{margin:2px;padding:4px}
+/* Own styles */
+a {text-decoration:none}
+a:hover {text-decoration:underline}
+.pasteBinUnit{background-color:#efcfff; font-size:75%}
+.cryptUnit{background-color:#ffcfcf}
+.plainTextUnit{background-color:#cfffcf}
+.important{color:#ff0000}
+.messageArea{readonly:true;;width:99%}
+.inputLabel {text-align:right; font-weight:bold}
+.pasteBinResult { width:99%;height:40px;}
+.slogan {font-size:75%; display:inline}
+</style>
+<script type="text/javascript" language="JavaScript">
+// This is a JavaScript implementation of CipherSaber 2 (http://bit.ly/ciphersaberarchive)
+//== string conversion ==
+function str2bin(s) {
+// returns a binary array (converts multibyte chars to utf-8)
+var result=new Array();
+var c; var i; var j;
+for (i=0,j=0 ; i<s.length ; i++) {
+c=s.charCodeAt(i);
+if (c<128) {
+result[j++]=c;} else if (c<2048) { // convert to 2 bytes (utf-8)
+result[j++]=(c>>6)|192;
+result[j++]=(c&63)|128;} else { // convert to 3 bytes
+result[j++]=(c>>12)|224;
+result[j++]=((c>>6)&63)|128;
+result[j++]=(c&63)|128;}}
+return result;}
+function bin2str(bin) {
+// returns a string (tough luck if contains '\0')
+// also decodes utf-8
+var result=''; var i=0;
+while(i<bin.length) {
+if (bin[i]<128) {
+result += String.fromCharCode(bin[i]);
+i++;} else if ((bin[i]>191) && (bin[i]<224)) {
+result += String.fromCharCode(((bin[i]&31)<<6) | (bin[i+1]&63));
+i+=2;} else {
+result += String.fromCharCode(
+((bin[i]&15)<<12) | ((bin[i+1]&63)<<6) | (bin[i+2]&63));
+i+=3;}}
+return result;}
+base64lookup = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=";
+function base64Encode(bin) {
+var len = bin.length;
+var res = '';
+var shift = 0;
+var leftover = 0;
+for (var i=0; i<len; i++) {
+res += base64lookup.charAt((bin[i] << shift | leftover) & 63);
+leftover = bin[i] >> (6-shift);
+shift += 2;
+if (shift==6 || i==len-1) {
+res += base64lookup.charAt(leftover);
+shift = 0;
+leftover = 0;}}
+return res;}
+function base64Decode(s) {
+var len=s.length;
+var res = new Array();
+var shift = 0;
+var leftover = 0;
+var lookup;
+var index=0;
+for (var i=0; i<s.length; i++) {
+lookup = base64lookup.indexOf(s.charAt(i));
+if (lookup>=0) { // skip whitespace and such
+if (shift) {
+res[index++] = (lookup << (8-shift) & 255) | leftover;}
+leftover = lookup >> shift;
+shift = (shift + 2) % 8;}}
+return res;}
+//== the crypto stuff ==
+function make_iv() {
+// generate a random 10 byte initialization vector (binary array)
+// See http://ciphersaber.gurus.com to understand what it's for
+// peer review question:
+// I assume that since the seed is current time, as longs as clocks 
+// don't go backwards IVs won't repeat. Am I wrong here?
+var result=new Array();
+for (var i=0 ; i<10 ; i++)
+result[i]=256 * Math.random();
+return result;}
+function _cs2(key, bin) {
+// Does RC4 with the mixing phase repeated 20 times
+// (that's the N from http://ciphersaber.gurus.com/faq.html#cs2)
+// Note that this function does NOT deal with the ciphersaber IV
+var i, j, temp;
+s=new Array();
+for (i=0; i<256; i++)
+s[i]=i;
+j=0;
+for (var k=0 ; k<20 ; k++) {
+for (i=0; i<256; i++) {
+j=(key[i % key.length] + s[i] + j) & 255;
+temp=s[i]; s[i]=s[j]; s[j]=temp;}}
+var result=new Array(bin.length);
+j=0; i=0;
+for (var index=0; index<bin.length; index++) {
+i=(i+1) & 255
+j=(s[i] + j) & 255;
+temp=s[i]; s[i]=s[j]; s[j]=temp;
+result[index]=bin[index] ^ s[(s[i] + s[j]) & 255];}
+return result;}
+//== "exportable" crypto functions ==
+function cs2encrypt(key,text) {
+var iv=make_iv();
+var binkey=str2bin(key).concat(iv);
+return base64Encode(iv.concat(_cs2(binkey,str2bin(text))));}
+function cs2decrypt(key,cipher) {
+var bin=base64Decode(cipher);
+var binkey=str2bin(key).concat(bin.slice(0,10));
+bin=bin.slice(10);
+return bin2str(_cs2(binkey,bin));}
+// == gui ==
+function $$(id) { return document.getElementById(id) } // mock jquery :)
+// == gui actions ==
+function show_message(m) {
+alert(m); /* temporary (yeah. Right) */}
+function do_encrypt() {
+var key=$$('out-key').value;
+var text=$$('plaintext').value;
+if (text.length && key.length && key==$$('out-key-verify').value) {
+$$('out-cipher').value=cs2encrypt(key,text);} else {
+show_message("Empty message, empty pass phrase, or pass phrases don't match");}}
+function do_decrypt() {
+var key=$$('in-key').value;
+if (key.length) {
+$$('plaintext').value=cs2decrypt(key,$$('in-cipher').value);} else {
+show_message("Empty pass phrase");}}
+function set_visibility(ids,is_visible) {
+disp=is_visible?'block':'none';
+ids.map(function(id) { $$(id).style.display=disp});}
+function set_gui_mode(m) {
+is_read = m=='read';
+set_visibility(['read','to-write'],is_read);
+set_visibility(['write','to-read'],!is_read);
+if (!is_read) { // save some hassle when replying
+$$('out-cipher').value='';
+$$('pastebin_result').src='about:blank'; /* this should be the only "src" in this file */}
+return true;}
+function validate_pastebin_form() {
+if ($$('out-cipher').value.trim().length) {
+return true;}
+show_message("Encrypt something first");
+return false;}
+function run_if_enter(f) {if (window.event && window.event.keyCode == 13) { return f() && false; }; return true;}
+</script>
+</head>
+<body onload="set_gui_mode('read')">
+<div class="page">
+<div class="head">
+<strong>HushBin - Tweet your secrets.</strong>
+<div class="slogan">
+<em>"Safe when taken <a target= "_blank"
+href="http://wiki.github.com/thedod/hushbin/">as directed</a>"<sup><strike>TM</strike></sup></em>
+-- "<a target="_blank" href="http://en.wikipedia.org/wiki/Ubik">Ubik</a>"</div></div>
+<div class="body">
+<fieldset id="read">
+<legend>Decryption</legend>
+<div class="line">
+<div class="unit size1of3 pasteBinUnit">
+<div class="inputLabel">Paste encrypted message here &gt;</div>
+You can try our demo message: go to <a target="_blank" href="http://pastebin.com/y3bi2c5N">the pastebin page</a>,
+select all text at the <em>SUBMIT A CORRECTION</em> text area, and copy it.
+The the pass phrase for the demo HushBin is <em>no woman no fly robin fly</em> (without the spaces).<br/>
+<strong>Note:</strong> Never use this pass phrase for anything. It's not secret ;)</div>
+<div class="unit size2of3 cryptUnit lastUnit">
+<textarea id="in-cipher" rows="5" class="messageArea" onclick="this.select()"></textarea><br/>
+Pass phrase:
+<input type="password" id="in-key" onkeypress="run_if_enter(do_decrypt)"/>
+<input onclick="do_decrypt()" type="button" value="Decrypt"/></div></div>
+</fieldset>
+<fieldset id="message">
+<legend>Message area</legend>
+<div class="line">
+<div class="unit size1of1 plainTextUnit lastUnit">
+<div id="to-read">[<a class="setGuiMode" href="#read" onclick="return set_gui_mode('read')">Decryption</a>]</div>
+<textarea rows="10" id="plaintext" class="messageArea"></textarea>
+<div id="to-write">[<a class="setGuiMode" href="#message" onclick="return set_gui_mode('write')">Encryption</a>]</div></div></div>
+</fieldset>
+<fieldset id="write">
+<legend>Encryption</legend>
+<form method="post" target="pastebin_result" action="http://pastebin.com/api_public.php"
+onsubmit="return validate_pastebin_form()">
+<div class="line">
+<div class="unit size1of1 cryptUnit lastUnit">
+<div class="line">
+<div class="unit inputLabel size1of4"><a target="_blank" href="http://wiki.github.com/strong-pass-phrases">Strong</a> pass phrase:</div>
+<div class="unit lastUnit"><input type="password" id="out-key"/>
+<span class="important">Read <a target="_blank" href="http://wiki.github.com/thedod/hushbin/">docs</a> before encrypting sensitive stuff</span></div></div>
+<div class="line">
+<div class="unit inputLabel size1of4">Verify pass phrase:</div>
+<div class="unit lastUnit">
+<input type="password" id="out-key-verify" onkeypress="return run_if_enter(do_encrypt)"/>
+<input onclick="do_encrypt()" type="button" value="Encrypt"/></div></div>
+<div class="line">
+<div class="unit inputLabel size3of5">
+<textarea name="paste_code" id="out-cipher" rows="6"
+class="messageArea" readonly="readonly" onclick="this.select()"></textarea></div>
+<div class="unit size2of5 pasteBinUnit lastUnit">
+<div class="line">
+<div class="unit size1of1 lastUnit">
+<input type="hidden" name="paste_name" value="github/thedod/hushbin"/>
+<input type="hidden" name="paste_private" value="1"/>
+<input id="pastebin_button" type="submit" value="> Publish to pastebin"/><br/>
+<iframe class="pasteBinResult" id="pastebin_result" name="pastebin_result"></iframe>
+</div></div></div></div></div></div></form></fieldset></div></div>
+</body>
+</html>
