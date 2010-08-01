@@ -2,7 +2,7 @@ This is a JavaScript implementation of "ciphersaber":http://bit.ly/ciphersaberar
 
 This version has the following new features:
 
-* Integration with pastebin
+* Integration with "pastebin":http://pastebin.com (requires some manual copy/paste)
 
 * Nicer gui (working on it, you can help)
 
