@@ -1,0 +1,20 @@
+This is a JavaScript implementation of "ciphersaber":http://bit.ly/ciphersaberarchive that originally appeared as "ubik":http://zzzen.com/ubiklite.html
+
+This version has the following new features:
+
+* Integration with pastebin
+
+* Nicer gui (working on it, you can help)
+
+* Single file (there's a single occurence of "src" in the file, and it assigns about.blank there)
+
+* Less than 10K. This is because I want to submit it (before 28th of August) to the "10K apart":http://10k.aneventapart.com/ competition. If you contrib, we can submit it together :)
+
+The file _hushbin.html_ is the < 10K file. It's not too minimized and still readable.
+There are comments and lots of other slack to get rid of if needed.
+_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _hushbin.html_
+
+I'll add more to this README file (and - of cource - to the wiki) later on.
+
+Cheers,
+"@TheRealDod":http://twitter.com/TheRealDod
