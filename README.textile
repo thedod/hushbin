@@ -6,7 +6,7 @@ This version has the following new features:
 
 * Nicer gui (working on it, you can help)
 
-* Single file (there's a single occurence of "src" in the file, and it assigns about.blank there)
+* Single file (there's a single occurence of "src" in the file, where we assign about:blank to an iframe)
 
 * Less than 10K. This is because I want to submit it (before 28th of August) to the "10K apart":http://10k.aneventapart.com/ competition. If you contrib, we can submit it together :)
 
