@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<!-- meta http-equiv="Content-Type" content="text/html; charset=UTF-8" / -->
+<!-- this is not utf-8 on purpose -->
 <title>HushBin - Tweet your secrets</title>
 <style type="text/css">
-/* shamelessly taken from http://oocss.org :) */
+/* shamelessly taken from http://oocss.org */
 body{font-family:"Myriad Pro","Segoe UI",Helvetica, Arial, sans-serif;}
 body{_text-align:center;}/* IE5.5 */
 .main{display:table-cell;*display:block;width:auto;}
@@ -24,7 +24,7 @@ body{_text-align:center;}/* IE5.5 */
 .size3of5{width:60%;}
 .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
 /* Own overides */
-.page{width:750px}
+.page{width:auto}
 .unit{margin:2px;padding:4px}
 /* Own styles */
 a {text-decoration:none}
@@ -164,15 +164,18 @@ function set_gui_mode(m) {
 is_read = m=='read';
 set_visibility(['read','to-write'],is_read);
 set_visibility(['write','to-read'],!is_read);
-if (!is_read) { // save some hassle when replying
+if (is_read) { // save some hassle when replying
+$$('in-cipher').focus();} else {
+$$('out-key').focus();
 $$('out-cipher').value='';
 $$('pastebin_result').src='about:blank'; /* this should be the only "src" in this file */}
-return true;}
+return false;}
 function validate_pastebin_form() {
 if ($$('out-cipher').value.trim().length) {
 return true;}
 show_message("Encrypt something first");
 return false;}
+function nop() {return false;};
 function run_if_enter(f) {if (window.event && window.event.keyCode == 13) { return f() && false; }; return true;}
 </script>
 </head>
@@ -211,7 +214,7 @@ Pass phrase:
 <fieldset id="write">
 <legend>Encryption</legend>
 <form method="post" target="pastebin_result" action="http://pastebin.com/api_public.php"
-onsubmit="return validate_pastebin_form()">
+onkeypress="return run_if_enter(nop)" onsubmit="return validate_pastebin_form()">
 <div class="line">
 <div class="unit size1of1 cryptUnit lastUnit">
 <div class="line">
