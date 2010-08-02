@@ -1,7 +1,8 @@
 h3. HushBin - Secrets you can tweet
 
-This is a self-contained single page javascript app for symmetric cryptograhy (RC4, essentially). It had "pastebin":http://pastebin.com integration for better interoperability with social networking (just tweet the pastebin's url).
-Of course - social networks are not a place for anything too secret (sooner or later someone would blurb the password), but it's good enough for "where the next flash mob" or "who's buying cake for the boss's surprise party" kinda secrets where the secrets have a short expiry date and no serious harm done if they're compromised sooner.
+"HushBin":http://thedod.github.com/hushbin/ is a self-contained single page javascript app for symmetric cryptograhy (RC4, essentially). It also has "pastebin":http://pastebin.com integration.
+This enables wide distribution of short-term secrets (e.g. “where’s the next flash mob”) and can work nicely with twitter and other social networks.
+Of course – social networks are not a place for anything too secret (sooner or later someone would blurb the password), but it’s good enough for “where’s the next flash mob” or “who’s buying cake for the boss’s surprise party” kinda secrets. Secrets that have a short expiry date and no serious harm done if they’re compromised sooner.
 
 See "demo":http://thedod.github.com/hushbin/ and "documentation":http://wiki.github.com/thedod/hushbin/
 
