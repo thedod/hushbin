@@ -1,20 +1,17 @@
-This is a JavaScript implementation of "ciphersaber":http://bit.ly/ciphersaberarchive that originally appeared as "ubik":http://zzzen.com/ubiklite.html
+h3. HushBin - Secrets you can tweet
 
-This version has the following new features:
+This is a self-contained single page javascript app for symmetric cryptograhy (RC4, essentially). It had "pastebin":http://pastebin.com integration for better interoperability with social networking (just tweet the pastebin's url).
+Of course - social networks are not a place for anything too secret (sooner or later someone would blurb the password), but it's good enough for "where the next flash mob" or "who's buying cake for the boss's surprise party" kinda secrets where the secrets have a short expiry date and no serious harm done if they're compromised sooner.
 
-* Integration with "pastebin":http://pastebin.com (requires some manual copy/paste)
+See "demo":http://thedod.github.com/hushbin/ and "documentation":http://wiki.github.com/thedod/hushbin/
 
-* Nicer gui (working on it, you can help)
+h3. Project related gossip
 
-* Single file (there's a single occurence of "src" in the file, where we assign about:blank to an iframe)
+Whenever I commit, _hushbin.html_ is Less than 10K. This is because I want to submit it (before 25th of August) to the "10K apart":http://10k.aneventapart.com/ competition.
 
-* Less than 10K. This is because I want to submit it (before 25th of August) to the "10K apart":http://10k.aneventapart.com/ competition. If you contrib, we can submit it together :)
-
-The file _hushbin.html_ is the < 10K file. It's not too minimized and still readable.
-There are comments and lots of other slack to get rid of if needed.
-_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _hushbin.html_
-
-I'll add more to this README file (and - of cource - to the wiki) later on.
+The file _hushbin.html_ is somewhat minimized (mainly there are no indentations) but it's still readable.
+There are comments, long identifiers, and additional fluff in case there's need for some extra bytes.
+_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _hushbin.html_ (e.g. tidy.html has the wrong charset definition. See if I care :) ).
 
 Cheers,
 "@TheRealDod":http://twitter.com/TheRealDod

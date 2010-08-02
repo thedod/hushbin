@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-16"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -5,9 +6,10 @@
 <head>
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
-  <!-- this is not utf-8 on purpose -->
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii" />
 
-  <title>HushBin - Tweet your secrets</title>
+  <title>HushBin - secrets you can tweet</title>
   <style type="text/css">
 /*<![CDATA[*/
   /* shamelessly taken from http://oocss.org */
@@ -35,37 +37,40 @@
   /* Own styles */
   a {text-decoration:none}
   a:hover {text-decoration:underline}
-  .pasteBinUnit{background-color:#efcfff; font-size:75%}
-  .cryptUnit{background-color:#ffcfcf}
-  .plainTextUnit{background-color:#cfffcf}
+  .online{background-color:#efcfff; font-size:80%}
+  .crypt{background-color:#ffcfcf}
+  .plainText{background-color:#cfffcf}
   .important{color:#ff0000}
   .messageArea{readonly:true;;width:99%}
-  .inputLabel {text-align:right; font-weight:bold}
-  .pasteBinResult { width:99%;height:40px;}
-  .slogan {font-size:75%; display:inline}
+  fieldset,.online,.crypt,.plainText,.messageArea{-moz-border-radius:5px;-webkit-border-radius:5px}
+  #help{position:fixed;left:0;top:0;padding:4px 6px;font-weight:bold;border:solid white 1px;z-index:23}
+  .inputLabel{text-align:right;font-weight:bold}
+  .inset{border:inset white 2px}
+  .pasteBinResult{width:99%;height:40px;}
+  .head {font-weight:bold;text-align:center;font-size:120%}
+  .nudgeLeft{position:relative;left:-1.25em}
+  .nudgeRight{position:relative;left:1.25em}
+  .important{text-shadow:gray 1px 1px 3px}
   /*]]>*/
   </style>
   <script type="text/javascript" language="JavaScript">
 //<![CDATA[
-  // This is a JavaScript implementation of CipherSaber 2 (http://bit.ly/ciphersaberarchive)
-  //== string conversion ==
   function str2bin(s) {
-  // returns a binary array (converts multibyte chars to utf-8)
+  // returns a binary array (converts utf-16 to utf-8)
   var result=new Array();
   var c; var i; var j;
   for (i=0,j=0 ; i<s.length ; i++) {
   c=s.charCodeAt(i);
   if (c<128) {
-  result[j++]=c;} else if (c<2048) { // convert to 2 bytes (utf-8)
+  result[j++]=c;} else if (c<2048) { // 2 byte utf-8
   result[j++]=(c>>6)|192;
-  result[j++]=(c&63)|128;} else { // convert to 3 bytes
+  result[j++]=(c&63)|128;} else { // 3 bytes
   result[j++]=(c>>12)|224;
   result[j++]=((c>>6)&63)|128;
   result[j++]=(c&63)|128;}}
   return result;}
   function bin2str(bin) {
-  // returns a string (tough luck if contains '\0')
-  // also decodes utf-8
+  // returns a string. may contain \0. decodes utf-8
   var result=''; var i=0;
   while(i<bin.length) {
   if (bin[i]<128) {
@@ -107,21 +112,17 @@
   leftover = lookup >> shift;
   shift = (shift + 2) % 8;}}
   return res;}
-  //== the crypto stuff ==
+  //== crypto ==
   function make_iv() {
-  // generate a random 10 byte initialization vector (binary array)
-  // See http://ciphersaber.gurus.com to understand what it's for
-  // peer review question:
-  // I assume that since the seed is current time, as longs as clocks 
-  // don't go backwards IVs won't repeat. Am I wrong here?
+  // Generate a random 10 byte initialization vector (binary array)
   var result=new Array();
   for (var i=0 ; i<10 ; i++)
   result[i]=256 * Math.random();
   return result;}
   function _cs2(key, bin) {
-  // Does RC4 with the mixing phase repeated 20 times
-  // (that's the N from http://ciphersaber.gurus.com/faq.html#cs2)
-  // Note that this function does NOT deal with the ciphersaber IV
+  // CipherSaber 2 algorithm with N=20
+  // See http://bit.ly/ciphersaberarchive
+  // This function does NOT deal with the iv
   var i, j, temp;
   s=new Array();
   for (i=0; i<256; i++)
@@ -151,7 +152,6 @@
   return bin2str(_cs2(binkey,bin));}
   // == gui ==
   function $$(id) { return document.getElementById(id) } // mock jquery :)
-  // == gui actions ==
   function show_message(m) {
   alert(m); /* temporary (yeah. Right) */}
   function do_encrypt() {
@@ -165,70 +165,70 @@
   if (key.length) {
   $$('plaintext').value=cs2decrypt(key,$$('in-cipher').value);} else {
   show_message("Empty pass phrase");}}
-  function set_visibility(ids,is_visible) {
+  function set_visible(ids,is_visible) {
   disp=is_visible?'block':'none';
   ids.map(function(id) { $$(id).style.display=disp});}
-  function set_gui_mode(m) {
+  function gui_mode(m) {
   is_read = m=='read';
-  set_visibility(['read','to-write'],is_read);
-  set_visibility(['write','to-read'],!is_read);
+  set_visible(['read','to-write'],is_read);
+  set_visible(['write','to-read'],!is_read);
   if (is_read) { // save some hassle when replying
   $$('in-cipher').focus();} else {
   $$('out-key').focus();
   $$('out-cipher').value='';
-  $$('pastebin_result').src='about:blank'; /* this should be the only "src" in this file */}
+  $$('pastebin_url').src='about:blank'; /* this should be the only "src" in this file */}
   return false;}
   function validate_pastebin_form() {
   if ($$('out-cipher').value.trim().length) {
   return true;}
   show_message("Encrypt something first");
   return false;}
+  // Keybard handlers
   function nop() {return false;};
   function run_if_enter(f) {if (window.event && window.event.keyCode == 13) { return f() && false; }; return true;}
   //]]>
   </script>
 </head>
 
-<body onload="set_gui_mode('read')">
+<body onload="gui_mode('read')">
   <div class="page">
-    <div class="head">
-      <strong>HushBin - Tweet your secrets.</strong>
+    <div id="help" class="online important">
+      <a target="_blank" href=
+      "http://wiki.github.com/thedod/hushbin/">Instructions</a>
+    </div>
 
-      <div class="slogan">
-        <em>"Safe when taken <a target="_blank" href=
-        "http://wiki.github.com/thedod/hushbin/">as
-        directed</a>"<sup><strike>TM</strike></sup></em> --
-        "<a target="_blank" href=
-        "http://en.wikipedia.org/wiki/Ubik">Ubik</a>"
-      </div>
+    <div class="head">
+      HushBin - secrets you can tweet
     </div>
 
     <div class="body">
       <fieldset id="read">
-        <legend>Decryption</legend>
+        <legend>&#9660; Incoming</legend>
 
         <div class="line">
-          <div class="unit size1of3 pasteBinUnit">
-            <div class="inputLabel">
-              Paste encrypted message here &gt;
-            </div>Try this with our demo HushBin: go to <a target=
-            "_blank" href="http://pastebin.com/y3bi2c5N">the
-            pastebin page</a>, select all text at the <em>SUBMIT A
-            CORRECTION</em> text area, and paste it here. The pass
-            phrase for the demo is <em>no woman no fly robin
-            fly</em> (without the spaces).<br />
-            <strong>Note:</strong> Never use this pass phrase for
-            anything. It's not secret ;)
+          <div class="unit size1of3 online">
+            <div class="inputLabel nudgeRight online">
+              Paste from hushbin &#9654;
+            </div>You can practice with our demo hushbin:<br />
+            At the <a target="_blank" href=
+            "http://pastebin.com/y3bi2c5N">pastebin page</a>,
+            select all text inside the <em>SUBMIT A CORRECTION</em>
+            text area, and copy/paste it here &#9654;<br />
+            The pass phrase for the demo is:<br />
+            <em>no woman no fly robin fly</em> (without
+            spaces).<br />
+            <strong>Note:</strong> Never use this pass phrase. It's
+            not secret ;)
           </div>
 
-          <div class="unit size2of3 cryptUnit lastUnit">
+          <div class="unit size2of3 crypt lastUnit">
             <textarea id="in-cipher" rows="5" class="messageArea"
             onclick="this.select()">
 </textarea><br />
             Pass phrase: <input type="password" id="in-key"
             onkeypress="run_if_enter(do_decrypt)" />
             <input onclick="do_decrypt()" type="button" value=
-            "Decrypt" />
+            "&#9660; Decrypt" />
           </div>
         </div>
       </fieldset>
@@ -237,31 +237,33 @@
         <legend>Message area</legend>
 
         <div class="line">
-          <div class="unit size1of1 plainTextUnit lastUnit">
+          <div class="unit size1of1 plainText lastUnit">
             <div id="to-read">
-              [<a class="setGuiMode" href="#read" onclick=
-              "return set_gui_mode('read')">Decryption</a>]
+              &#10553;<a class="setGuiMode" href="#read" onclick=
+              "return gui_mode('read')">Decrypt an incoming
+              message</a>
             </div>
             <textarea rows="10" id="plaintext" class="messageArea">
 </textarea>
 
             <div id="to-write">
-              [<a class="setGuiMode" href="#message" onclick=
-              "return set_gui_mode('write')">Encryption</a>]
+              <a class="setGuiMode" href="#message" onclick=
+              "return gui_mode('write')">Encrypt message
+              area</a>&#10552;
             </div>
           </div>
         </div>
       </fieldset>
 
       <fieldset id="write">
-        <legend>Encryption</legend>
+        <legend>&#9660; Outgoing</legend>
 
-        <form method="post" target="pastebin_result" action=
+        <form method="post" target="pastebin_url" action=
         "http://pastebin.com/api_public.php" onkeypress=
         "return run_if_enter(nop)" onsubmit=
         "return validate_pastebin_form()">
           <div class="line">
-            <div class="unit size1of1 cryptUnit lastUnit">
+            <div class="unit size1of1 crypt lastUnit">
               <div class="line">
                 <div class="unit inputLabel size1of4">
                   <a target="_blank" href=
@@ -271,9 +273,9 @@
 
                 <div class="unit lastUnit">
                   <input type="password" id="out-key" />
-                  <span class="important">Read <a target="_blank"
-                  href=
-                  "http://wiki.github.com/thedod/hushbin/">docs</a>
+                  <span class="important">Read the <a target=
+                  "_blank" href=
+                  "http://wiki.github.com/thedod/hushbin/">instructions</a>
                   before encrypting sensitive stuff</span>
                 </div>
               </div>
@@ -287,29 +289,29 @@
                   <input type="password" id="out-key-verify"
                   onkeypress="return run_if_enter(do_encrypt)" />
                   <input onclick="do_encrypt()" type="button"
-                  value="Encrypt" />
+                  value="&#9660; Encrypt" />
                 </div>
               </div>
 
               <div class="line">
                 <div class="unit inputLabel size3of5">
                   <textarea name="paste_code" id="out-cipher" rows=
-                  "6" class="messageArea" readonly="readonly"
+                  "5" class="messageArea" readonly="readonly"
                   onclick="this.select()">
 </textarea>
                 </div>
 
-                <div class="unit size2of5 pasteBinUnit lastUnit">
+                <div class="unit size2of5 online inset lastUnit">
                   <div class="line">
                     <div class="unit size1of1 lastUnit">
                       <input type="hidden" name="paste_name" value=
                       "github/thedod/hushbin" /> <input type=
                       "hidden" name="paste_private" value="1" />
-                      <input id="pastebin_button" type="submit"
-                      value="&gt; Publish to pastebin" /><br />
+                      <input id="pastebin_button" class="nudgeLeft"
+                      type="submit" value=
+                      "&#9654; Post to pastebin" /><br />
                       <iframe class="pasteBinResult" id=
-                      "pastebin_result" name=
-                      "pastebin_result"></iframe>
+                      "pastebin_url" name="pastebin_url"></iframe>
                     </div>
                   </div>
                 </div>
