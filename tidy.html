@@ -56,7 +56,7 @@
   <script type="text/javascript" language="JavaScript">
 //<![CDATA[
   function str2bin(s) {
-  // returns a binary array (converts utf-16 to utf-8)
+  // returns a binary array (does utf-16=>utf-8)
   var result=new Array();
   var c; var i; var j;
   for (i=0,j=0 ; i<s.length ; i++) {
@@ -70,7 +70,7 @@
   result[j++]=(c&63)|128;}}
   return result;}
   function bin2str(bin) {
-  // returns a string. may contain \0. decodes utf-8
+  // reverse of str2bin
   var result=''; var i=0;
   while(i<bin.length) {
   if (bin[i]<128) {
@@ -203,22 +203,24 @@
 
     <div class="body">
       <fieldset id="read">
-        <legend>&#9660; Incoming</legend>
+        <legend>&#9660; Decrypting</legend>
 
         <div class="line">
           <div class="unit size1of3 online">
             <div class="inputLabel nudgeRight online">
-              Paste from hushbin &#9654;
-            </div>You can practice with our demo hushbin:<br />
-            At the <a target="_blank" href=
-            "http://pastebin.com/y3bi2c5N">pastebin page</a>,
-            select all text inside the <em>SUBMIT A CORRECTION</em>
-            text area, and copy/paste it here &#9654;<br />
+              Paste encrypted text &#9654;
+            </div>You can try our demo encrypted message:<br />
+            Go to this <a target="_blank" href=
+            "http://pastebin.com/y3bi2c5N">pastebin page</a>. Below
+            <em>"SUBMIT A CORRECTION"</em> There's a text
+            area.<br />
+            Select all text there and copy/paste it here
+            &#9654;<br />
             The pass phrase for the demo is:<br />
             <em>no woman no fly robin fly</em> (without
             spaces).<br />
-            <strong>Note:</strong> Never use this pass phrase. It's
-            not secret ;)
+            <strong>Note:</strong> Never use this pass phrase for
+            anything secret. Everybody knows it already ;)
           </div>
 
           <div class="unit size2of3 crypt lastUnit">
@@ -234,29 +236,29 @@
       </fieldset>
 
       <fieldset id="message">
-        <legend>Message area</legend>
+        <legend>Plain text</legend>
 
         <div class="line">
           <div class="unit size1of1 plainText lastUnit">
             <div id="to-read">
-              &#10553;<a class="setGuiMode" href="#read" onclick=
-              "return gui_mode('read')">Decrypt an incoming
-              message</a>
+              <a class="setGuiMode" href="#read" onclick=
+              "return gui_mode('read')">To
+              decrypt</a><sup>&#10548;</sup>
             </div>
             <textarea rows="10" id="plaintext" class="messageArea">
 </textarea>
 
             <div id="to-write">
               <a class="setGuiMode" href="#message" onclick=
-              "return gui_mode('write')">Encrypt message
-              area</a>&#10552;
+              "return gui_mode('write')">To
+              encrypt</a><sub>&#10549;</sub>
             </div>
           </div>
         </div>
       </fieldset>
 
       <fieldset id="write">
-        <legend>&#9660; Outgoing</legend>
+        <legend>&#9660; Encrypting</legend>
 
         <form method="post" target="pastebin_url" action=
         "http://pastebin.com/api_public.php" onkeypress=
