@@ -1,25 +1,23 @@
-<?xml version="1.0" encoding="utf-16"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+  "HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org">
   <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii" />
+  "text/html; charset=us-ascii">
 
   <title>HushBin - secrets you can tweet</title>
   <style type="text/css">
 /*<![CDATA[*/
-  /* shamelessly taken from http://oocss.org */
+  /* Based on http://oocss.org */
   body{font-family:"Myriad Pro","Segoe UI",Helvetica, Arial, sans-serif;}
   body{_text-align:center;}/* IE5.5 */
   .main{display:table-cell;*display:block;width:auto;}
   .body,.main{*zoom:1;}
   .body:after,.main:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
   .page{margin:0 auto;width:950px;_text-align:left;} /* wraps other template elems to set width */ /* text-align IE5.5 */
-  @media screen and (max-width: 319px) {.unit{float: none !important; width: auto !important;}}
+  @media screen and (max-width: 319px){.unit{float: none !important; width: auto !important;}}
   .line:after,.lastUnit:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
   .line{*zoom:1;}
   .unit{float:left;}
@@ -31,51 +29,50 @@
   .size2of5{width:40%;}
   .size3of5{width:60%;}
   .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
-  /* Own overides */
+  /* Own overrides */
   .page{width:auto}
-  .unit{margin:2px;padding:4px}
+  .unit{margin:2px;padding:2px 4px}
   /* Own styles */
   a {text-decoration:none}
   a:hover {text-decoration:underline}
-  .online{background-color:#efcfff; font-size:80%}
+  .online{background-color:#efdfff; font-size:80%}
   .crypt{background-color:#ffcfcf}
   .plainText{background-color:#cfffcf}
-  .important{color:#ff0000}
+  .spiffy{color:#ff0000;text-shadow:gray 1px 1px 3px}
   .messageArea{readonly:true;;width:99%}
   fieldset,.online,.crypt,.plainText,.messageArea{-moz-border-radius:5px;-webkit-border-radius:5px}
   #help{position:fixed;left:0;top:0;padding:4px 6px;font-weight:bold;border:solid white 1px;z-index:23}
   .inputLabel{text-align:right;font-weight:bold}
   .inset{border:inset white 2px}
-  .pasteBinResult{width:99%;height:40px;}
+  .pbResult{width:99%;height:40px;border:none}
   .head {font-weight:bold;text-align:center;font-size:120%}
   .nudgeLeft{position:relative;left:-1.25em}
   .nudgeRight{position:relative;left:1.25em}
-  .important{text-shadow:gray 1px 1px 3px}
   /*]]>*/
   </style>
-  <script type="text/javascript" language="JavaScript">
+  <script type="text/javascript">
 //<![CDATA[
-  function str2bin(s) {
-  // returns a binary array (does utf-16=>utf-8)
+  function str2bin(s){
+  // utf-16=>utf-8=>binary-array
   var result=new Array();
   var c; var i; var j;
-  for (i=0,j=0 ; i<s.length ; i++) {
+  for (i=0,j=0 ; i<s.length ; i++){
   c=s.charCodeAt(i);
-  if (c<128) {
-  result[j++]=c;} else if (c<2048) { // 2 byte utf-8
+  if (c<128){
+  result[j++]=c;} else if (c<2048){ // 2 byte utf-8
   result[j++]=(c>>6)|192;
   result[j++]=(c&63)|128;} else { // 3 bytes
   result[j++]=(c>>12)|224;
   result[j++]=((c>>6)&63)|128;
   result[j++]=(c&63)|128;}}
   return result;}
-  function bin2str(bin) {
+  function bin2str(bin){
   // reverse of str2bin
   var result=''; var i=0;
-  while(i<bin.length) {
-  if (bin[i]<128) {
+  while(i<bin.length){
+  if (bin[i]<128){
   result += String.fromCharCode(bin[i]);
-  i++;} else if ((bin[i]>191) && (bin[i]<224)) {
+  i++;} else if ((bin[i]>191) && (bin[i]<224)){
   result += String.fromCharCode(((bin[i]&31)<<6) | (bin[i+1]&63));
   i+=2;} else {
   result += String.fromCharCode(
@@ -83,117 +80,125 @@
   i+=3;}}
   return result;}
   base64lookup = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=";
-  function base64Encode(bin) {
+  function base64Encode(bin){
   var len = bin.length;
   var res = '';
   var shift = 0;
   var leftover = 0;
-  for (var i=0; i<len; i++) {
+  for (var i=0; i<len; i++){
   res += base64lookup.charAt((bin[i] << shift | leftover) & 63);
   leftover = bin[i] >> (6-shift);
   shift += 2;
-  if (shift==6 || i==len-1) {
+  if (shift==6 || i==len-1){
   res += base64lookup.charAt(leftover);
   shift = 0;
   leftover = 0;}}
   return res;}
-  function base64Decode(s) {
+  function base64Decode(s){
   var len=s.length;
   var res = new Array();
   var shift = 0;
   var leftover = 0;
   var lookup;
   var index=0;
-  for (var i=0; i<s.length; i++) {
+  for (var i=0; i<s.length; i++){
   lookup = base64lookup.indexOf(s.charAt(i));
-  if (lookup>=0) { // skip whitespace and such
-  if (shift) {
+  if (lookup>=0){ // skip whitespace
+  if (shift){
   res[index++] = (lookup << (8-shift) & 255) | leftover;}
   leftover = lookup >> shift;
   shift = (shift + 2) % 8;}}
   return res;}
   //== crypto ==
-  function make_iv() {
+  function make_iv(){
   // Generate a random 10 byte initialization vector (binary array)
   var result=new Array();
   for (var i=0 ; i<10 ; i++)
   result[i]=256 * Math.random();
   return result;}
-  function _cs2(key, bin) {
-  // CipherSaber 2 algorithm with N=20
-  // See http://bit.ly/ciphersaberarchive
-  // This function does NOT deal with the iv
+  function _cs2(key, bin){
+  // RC4 part of cs2 (key should contain iv)
   var i, j, temp;
   s=new Array();
   for (i=0; i<256; i++)
   s[i]=i;
   j=0;
-  for (var k=0 ; k<20 ; k++) {
-  for (i=0; i<256; i++) {
+  for (var k=0 ; k<20 ; k++){
+  for (i=0; i<256; i++){
   j=(key[i % key.length] + s[i] + j) & 255;
   temp=s[i]; s[i]=s[j]; s[j]=temp;}}
   var result=new Array(bin.length);
   j=0; i=0;
-  for (var index=0; index<bin.length; index++) {
+  for (var index=0; index<bin.length; index++){
   i=(i+1) & 255
   j=(s[i] + j) & 255;
   temp=s[i]; s[i]=s[j]; s[j]=temp;
   result[index]=bin[index] ^ s[(s[i] + s[j]) & 255];}
   return result;}
   //== "exportable" crypto functions ==
-  function cs2encrypt(key,text) {
+  // CipherSaber 2 algorithm with N=20
+  // See http://bit.ly/ciphersaberarchive
+  function cs2encrypt(key,text){
   var iv=make_iv();
   var binkey=str2bin(key).concat(iv);
   return base64Encode(iv.concat(_cs2(binkey,str2bin(text))));}
-  function cs2decrypt(key,cipher) {
+  function cs2decrypt(key,cipher){
   var bin=base64Decode(cipher);
   var binkey=str2bin(key).concat(bin.slice(0,10));
   bin=bin.slice(10);
   return bin2str(_cs2(binkey,bin));}
   // == gui ==
-  function $$(id) { return document.getElementById(id) } // mock jquery :)
-  function show_message(m) {
+  function $$(id){ return document.getElementById(id) } // mock jquery :)
+  function show_message(m){
   alert(m); /* temporary (yeah. Right) */}
-  function do_encrypt() {
+  function do_encrypt(){
   var key=$$('out-key').value;
   var text=$$('plaintext').value;
-  if (text.length && key.length && key==$$('out-key-verify').value) {
+  if (text.length && key.length && key==$$('out-key-verify').value){
   $$('out-cipher').value=cs2encrypt(key,text);} else {
   show_message("Empty message, empty pass phrase, or pass phrases don't match");}}
-  function do_decrypt() {
+  function do_decrypt(){
   var key=$$('in-key').value;
-  if (key.length) {
+  if (key.length){
   $$('plaintext').value=cs2decrypt(key,$$('in-cipher').value);} else {
   show_message("Empty pass phrase");}}
-  function set_visible(ids,is_visible) {
+  function set_visible(ids,is_visible){
   disp=is_visible?'block':'none';
-  ids.map(function(id) { $$(id).style.display=disp});}
-  function gui_mode(m) {
+  ids.map(function(id){ $$(id).style.display=disp});}
+  function gui_mode(m){
   is_read = m=='read';
   set_visible(['read','to-write'],is_read);
   set_visible(['write','to-read'],!is_read);
-  if (is_read) { // save some hassle when replying
-  $$('in-cipher').focus();} else {
+  if (is_read){ // save some hassle when replying
+  $$('in-cipher').focus();
+  $$('in-key').value='';
+  } else {
   $$('out-key').focus();
+  $$('out-key').value='';
+  $$('out-key-verify').value='';
   $$('out-cipher').value='';
-  $$('pastebin_url').src='about:blank'; /* this should be the only "src" in this file */}
+  $$('pb_result').src='about:blank'; /* this should be the only "src" in this file */}
   return false;}
-  function validate_pastebin_form() {
-  if ($$('out-cipher').value.trim().length) {
+  function validate_pastebin_form(){
+  if ($$('out-cipher').value.trim().length){
   return true;}
   show_message("Encrypt something first");
   return false;}
-  // Keybard handlers
-  function nop() {return false;};
-  function run_if_enter(f) {if (window.event && window.event.keyCode == 13) { return f() && false; }; return true;}
+  // kb handlers
+  function nop(){return false;};
+  function run_if_enter(f){if (window.event && window.event.keyCode == 13){return f() && false;}; return true;}
+  // onload
+  function init(){
+  gui_mode('read');$$('pb_form').target='pb_result';linx=document.getElementsByTagName('a');
+  for (i in linx){l=linx[i];if (l.href && !l.href.match('#')){l.target='_blank'}}}
   //]]>
   </script>
 </head>
 
-<body onload="gui_mode('read')">
+<body onload="init()">
   <div class="page">
-    <div id="help" class="online important">
-      <a target="_blank" href=
+    <div id="help" class="online spiffy">
+      <a href=
       "http://wiki.github.com/thedod/hushbin/">Instructions</a>
     </div>
 
@@ -209,28 +214,27 @@
           <div class="unit size1of3 online">
             <div class="inputLabel nudgeRight online">
               Paste encrypted text &#9654;
-            </div>You can try our demo encrypted message:<br />
-            Go to this <a target="_blank" href=
+            </div>You can try our demo encrypted message:<br>
+            Go to this <a href=
             "http://pastebin.com/aNQiMXTZ">pastebin page</a>. Below
             the <strong>"SUBMIT A CORRECTION..."</strong> line
-            there's a text area.<br />
+            there's a text area.<br>
             Select all text there and copy/paste it here
-            &#9654;<br />
-            The pass phrase for the demo is:<br />
+            &#9654;<br>
+            The pass phrase for the demo is:<br>
             <em>no woman no fly robin fly</em> (without
-            spaces).<br />
+            spaces).<br>
             <strong>Note:</strong> Never use this pass phrase for
             anything secret. Everybody knows it already ;)
           </div>
 
           <div class="unit size2of3 crypt lastUnit">
-            <textarea id="in-cipher" rows="5" class="messageArea"
-            onclick="this.select()">
-</textarea><br />
+            <textarea id="in-cipher" cols="23" rows="5" class=
+            "messageArea" onclick="this.select()">
+</textarea><br>
             Pass phrase: <input type="password" id="in-key"
-            onkeypress="run_if_enter(do_decrypt)" />
-            <input onclick="do_decrypt()" type="button" value=
-            "&#9660; Decrypt" />
+            onkeypress="run_if_enter(do_decrypt)"> <input onclick=
+            "do_decrypt()" type="button" value="&#9660; Decrypt">
           </div>
         </div>
       </fieldset>
@@ -245,7 +249,8 @@
               "return gui_mode('read')">To
               decrypt</a><sup>&#10548;</sup>
             </div>
-            <textarea rows="10" id="plaintext" class="messageArea">
+            <textarea cols="23" rows="10" id="plaintext" class=
+            "messageArea">
 </textarea>
 
             <div id="to-write">
@@ -260,46 +265,45 @@
       <fieldset id="write">
         <legend>&#9660; Encrypting</legend>
 
-        <form method="post" target="pastebin_url" action=
-        "http://pastebin.com/api_public.php" onkeypress=
-        "return run_if_enter(nop)" onsubmit=
-        "return validate_pastebin_form()">
-          <div class="line">
-            <div class="unit size1of1 crypt lastUnit">
-              <div class="line">
-                <div class="unit inputLabel size1of4">
-                  <a target="_blank" href=
-                  "http://wiki.github.com/strong-pass-phrases">Strong</a>
-                  pass phrase:
-                </div>
-
-                <div class="unit lastUnit">
-                  <input type="password" id="out-key" />
-                  <span class="important">Read the <a target=
-                  "_blank" href=
-                  "http://wiki.github.com/thedod/hushbin/">instructions</a>
-                  before encrypting sensitive stuff</span>
-                </div>
+        <div class="line">
+          <div class="unit size1of1 crypt lastUnit">
+            <div class="line">
+              <div class="unit inputLabel size1of4">
+                <a href=
+                "http://wiki.github.com/thedod/hushbin/strong-pass-phrases">
+                Strong</a> pass phrase:
               </div>
 
-              <div class="line">
-                <div class="unit inputLabel size1of4">
-                  Verify pass phrase:
-                </div>
+              <div class="unit lastUnit">
+                <input type="password" id="out-key"> <span class=
+                "spiffy">Read the <a href=
+                "http://wiki.github.com/thedod/hushbin/">instructions</a>
+                before encrypting sensitive stuff</span>
+              </div>
+            </div>
 
-                <div class="unit lastUnit">
-                  <input type="password" id="out-key-verify"
-                  onkeypress="return run_if_enter(do_encrypt)" />
-                  <input onclick="do_encrypt()" type="button"
-                  value="&#9660; Encrypt" />
-                </div>
+            <div class="line">
+              <div class="unit inputLabel size1of4">
+                Verify pass phrase:
               </div>
 
+              <div class="unit lastUnit">
+                <input type="password" id="out-key-verify"
+                onkeypress="return run_if_enter(do_encrypt)">
+                <input onclick="do_encrypt()" type="button" value=
+                "&#9660; Encrypt">
+              </div>
+            </div>
+
+            <form id="pb_form" method="post" action=
+            "http://pastebin.com/api_public.php" onkeypress=
+            "return run_if_enter(nop)" onsubmit=
+            "return validate_pastebin_form()" name="pb_form">
               <div class="line">
                 <div class="unit inputLabel size3of5">
-                  <textarea name="paste_code" id="out-cipher" rows=
-                  "5" class="messageArea" readonly="readonly"
-                  onclick="this.select()">
+                  <textarea name="paste_code" id="out-cipher" cols=
+                  "23" rows="5" class="messageArea" readonly=
+                  "readonly" onclick="this.select()">
 </textarea>
                 </div>
 
@@ -307,20 +311,20 @@
                   <div class="line">
                     <div class="unit size1of1 lastUnit">
                       <input type="hidden" name="paste_name" value=
-                      "github/thedod/hushbin" /> <input type=
-                      "hidden" name="paste_private" value="1" />
-                      <input id="pastebin_button" class="nudgeLeft"
-                      type="submit" value=
-                      "&#9654; Post to pastebin" /><br />
-                      <iframe class="pasteBinResult" id=
-                      "pastebin_url" name="pastebin_url"></iframe>
+                      "github/thedod/hushbin"> <input type="hidden"
+                      name="paste_private" value="1"> <input id=
+                      "pastebin_button" class="nudgeLeft" type=
+                      "submit" value=
+                      "&#9654; Post to pastebin"><br>
+                      <iframe class="pbResult" id="pb_result" name=
+                      "pb_result"></iframe>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
-        </form>
+        </div>
       </fieldset>
     </div>
   </div>
