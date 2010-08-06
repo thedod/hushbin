@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>HushBin - secrets you can tweet</title>
 <style type="text/css">
 /*<![CDATA[*/
@@ -193,15 +193,12 @@ HushBin - secrets you can tweet</div>
 <div class="leftCol">
 <div class="line"><div class="unit crypt lastUnit">
 <div class="line"><div class="unit online inset lastUnit">
-Try our demo encrypted text:<br>
-Go to this <a href="http://pastebin.com/aNQiMXTZ">pastebin page</a>.
+Try our demo encrypted text: Go to this <a href="http://pastebin.com/aNQiMXTZ">pastebin page</a>.
 Below the <strong>"SUBMIT A CORRECTION..."</strong>
-line there's a text area.<br>
-Select all text there and copy / paste it
-below.<br>
-The pass phrase for the demo is:<br>
+line there's a text area. Select all text there and copy / paste it below.<br/>
+The pass phrase for the demo is:
 <em>no woman no fly robin fly</em> (without
-spaces).<br>
+spaces).<br/>
 <strong>Note:</strong> Never use this pass phrase
 for anything secret. Everybody knows it already ;)</div></div>
 <div class="line">
@@ -211,36 +208,36 @@ Encrypted text:</div>
 <div>
 <textarea tabindex="1" id="in-cipher" cols="5" rows="3" class="wideInput noScrollBar" onclick="this.select()"></textarea></div>
 <div class="inputLabel">Pass phrase:</div>
-<div><input tabindex="2" class="wideInput" type="password" id="in-key" onkeypress="run_if_enter(do_decrypt)"></div>
+<div><input tabindex="2" class="wideInput" type="password" id="in-key" onkeypress="run_if_enter(do_decrypt)"/></div>
 <div class="decButton">
-<input tabindex="3" onclick="do_decrypt()" type="button" value="&#9654; Decrypt"></div></div></div></div></div></div>
+<input tabindex="3" onclick="do_decrypt()" type="button" value="&#9654; Decrypt"/></div></div></div></div></div></div>
 <div class="rightCol">
 <div class="spiffy">Before encrypting anything sensitive, read the <a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div>
 <div class="line"><div class="unit size1of1 lastUnit crypt">
 <div class="line"><div class="unit size1of1 lastUnit">
 <div class="inputLabel">
 <a href="http://wiki.github.com/thedod/hushbin/strong-pass-phrases">Strong</a> pass phrase:</div>
-<div><input tabindex="5" class="wideInput" type="password" id="out-key"></div>
+<div><input tabindex="5" class="wideInput" type="password" id="out-key"/></div>
 <div class="inputLabel">Verify pass phrase:</div>
 <div><input tabindex="6" class="wideInput" type="password" id="out-key-verify"
-onkeypress="return run_if_enter(do_encrypt)"></div>
+onkeypress="return run_if_enter(do_encrypt)"/></div>
 <div class="encButton">
-<input tabindex="7" onclick="do_encrypt()" type="button" value="&#9654; Encrypt"></div></div></div>
+<input tabindex="7" onclick="do_encrypt()" type="button" value="&#9654; Encrypt"/></div></div></div>
 <div class="line"><div class="unit size1of1 lastUnit">
 <form id="pb_form" method="post" action="http://pastebin.com/api_public.php" onkeypress="return run_if_enter(nop)" onsubmit="return validate_pastebin_form()" name="pb_form">
 <div class="inputLabel">Encrypted text:</div>
 <div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5" rows="3" class="wideInput noScrollBar"
 readonly="readonly" onclick="this.select()"></textarea></div>
 <div class="line"><div class="unit size1of1 lastUnit online inset">
-<input type="hidden" name="paste_name" value="github/thedod/hushbin">
-<input type="hidden" name="paste_private" value="1">
-<div class="pbButton"><input tabindex="9" id="pastebin_button" type="submit" value="&#9660; Post to pastebin"></div>
+<input type="hidden" name="paste_name" value="github/thedod/hushbin"/>
+<input type="hidden" name="paste_private" value="1"/>
+<div class="pbButton"><input tabindex="9" id="pastebin_button" type="submit" value="&#9660; Post to pastebin"/></div>
 <iframe class="pbResult" id="pb_result" name="pb_result"></iframe></div></div></form></div></div></div>
 <div class="clearDiv"><input tabindex="10" type="button" class="clearButton" onclick="clear_inputs()"
-value="&#8999; Clear (alt+C)" accesskey="c"></div></div></div>
+value="&#8999; Clear" accesskey="c"/></div></div></div>
 <div class="main">
 <div class="line"><div class="unit size1of1 plainText outset lastUnit">
 <div class="inputLabel">Plain text:</div>
-<textarea tabindex="4" cols="23" rows="22" id="plaintext" class="wideInput"></textarea></div></div></div></div></div>
+<textarea tabindex="4" cols="23" rows="25" id="plaintext" class="wideInput"></textarea></div></div></div></div></div>
 </body>
 </html>
