@@ -147,7 +147,9 @@ var binkey=str2bin(key).concat(bin.slice(0,10));
 bin=bin.slice(10);
 return bin2str(_cs2(binkey,bin))}
 // == gui ==
-function $$(id){ return document.getElementById(id) } // mock jquery :)
+// "mock jquery" functions
+function $$(i){return document.getElementById(i)}
+function $$$(t){return document.getElementsByTagName(t)}
 function show_message(m){
 alert(m); /* temporary (yeah. Right) */}
 // crypto gui actions
@@ -170,14 +172,14 @@ show_message("Encrypt something first");
 return false}
 // clear inputs
 function _clear_aux(v){for (i in v) try{if (v[i].type=='password'||v[i].type.slice(0,4)=='text') v[i].value=''}catch(e){}}
-function clear_inputs(){_clear_aux(document.getElementsByTagName('input'));_clear_aux(document.getElementsByTagName('textarea'))}
+function clear_inputs(){_clear_aux($$$('input'));_clear_aux($$$('textarea'))}
 // kb handlers
 function nop(){return false};
 function run_if_enter(f){if (window.event && window.event.keyCode==13){return f() && false}; return true}
 // onload
 function init(){
-$$('pb_form').target='pb_result';linx=document.getElementsByTagName('a');
-for (i in linx){l=linx[i];if (l.href && !l.href.match('#'))l.target='_blank'}}
+$$('pb_form').target='pb_result';linx=$$$('a');
+for (i in linx){l=linx[i]; if (l.href && !l.href.match('#'))l.target='_blank'}}
 //]]>
 </script>
 </head>
