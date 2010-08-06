@@ -33,10 +33,10 @@ a:hover {text-decoration:underline}
 .crypt{background-color:#ffcfcf}
 .plainText{background-color:#cfffcf}
 .spiffy{color:#ff0000;text-shadow:gray 1px 1px 3px}
-.inputLabel{font-weight:bold;font-size:80%;text-shadow:white 1px 1px 0.5px}
-.wideInput{width:99%}
+.formLabel{font-weight:bold;font-size:80%;text-shadow:white 1px 1px 0.5px}
+.maxWidth{width:99%}
 .noScrollBar{overflow-y:hidden}
-.online,.crypt,.plainText,.wideInput{-moz-border-radius:5px;-webkit-border-radius:5px}
+.online,.crypt,.plainText,.maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
 #help{position:fixed;left:0;top:0;padding:4px 6px;font-weight:bold;border:solid white 1px;z-index:23}
 .inset{border:inset #efefef 2px}
 .outset{border:outset #efefef 2px}
@@ -169,17 +169,15 @@ return true}
 show_message("Encrypt something first");
 return false}
 // clear inputs
-function _clear_inputs(v){for (i in v) if (v[i].type && v[i].type.slice(0,4)=='text') v[i].value=''}
-function clear_inputs(){
-_clear_inputs(document.getElementsByTagName('input'));
-_clear_inputs(document.getElementsByTagName('textarea'))}
+function _clear_aux(v){for (i in v) try{if (v[i].type=='password'||v[i].type.slice(0,4)=='text') v[i].value=''}catch(e){}}
+function clear_inputs(){_clear_aux(document.getElementsByTagName('input'));_clear_aux(document.getElementsByTagName('textarea'))}
 // kb handlers
 function nop(){return false};
-function run_if_enter(f){if (window.event && window.event.keyCode == 13){return f() && false}; return true}
+function run_if_enter(f){if (window.event && window.event.keyCode==13){return f() && false}; return true}
 // onload
 function init(){
 $$('pb_form').target='pb_result';linx=document.getElementsByTagName('a');
-for (i in linx){l=linx[i];if (l.href && !l.href.match('#')){l.target='_blank'}}}
+for (i in linx){l=linx[i];if (l.href && !l.href.match('#'))l.target='_blank'}}
 //]]>
 </script>
 </head>
@@ -203,30 +201,30 @@ spaces).<br/>
 for anything secret. Everybody knows it already ;)</div></div>
 <div class="line">
 <div class="unit lastUnit">
-<div class="inputLabel">
+<div class="formLabel">
 Encrypted text:</div>
 <div>
-<textarea tabindex="1" id="in-cipher" cols="5" rows="3" class="wideInput noScrollBar" onclick="this.select()"></textarea></div>
-<div class="inputLabel">Pass phrase:</div>
-<div><input tabindex="2" class="wideInput" type="password" id="in-key" onkeypress="run_if_enter(do_decrypt)"/></div>
+<textarea tabindex="1" id="in-cipher" cols="5" rows="3" class="maxWidth noScrollBar" onclick="this.select()"></textarea></div>
+<div class="formLabel">Pass phrase:</div>
+<div><input tabindex="2" class="maxWidth" type="password" id="in-key" onkeypress="run_if_enter(do_decrypt)"/></div>
 <div class="decButton">
 <input tabindex="3" onclick="do_decrypt()" type="button" value="&#9654; Decrypt"/></div></div></div></div></div></div>
 <div class="rightCol">
 <div class="spiffy">Before encrypting anything sensitive, read the <a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div>
 <div class="line"><div class="unit size1of1 lastUnit crypt">
 <div class="line"><div class="unit size1of1 lastUnit">
-<div class="inputLabel">
+<div class="formLabel">
 <a href="http://wiki.github.com/thedod/hushbin/strong-pass-phrases">Strong</a> pass phrase:</div>
-<div><input tabindex="5" class="wideInput" type="password" id="out-key"/></div>
-<div class="inputLabel">Verify pass phrase:</div>
-<div><input tabindex="6" class="wideInput" type="password" id="out-key-verify"
+<div><input tabindex="5" class="maxWidth" type="password" id="out-key"/></div>
+<div class="formLabel">Verify pass phrase:</div>
+<div><input tabindex="6" class="maxWidth" type="password" id="out-key-verify"
 onkeypress="return run_if_enter(do_encrypt)"/></div>
 <div class="encButton">
 <input tabindex="7" onclick="do_encrypt()" type="button" value="&#9654; Encrypt"/></div></div></div>
 <div class="line"><div class="unit size1of1 lastUnit">
 <form id="pb_form" method="post" action="http://pastebin.com/api_public.php" onkeypress="return run_if_enter(nop)" onsubmit="return validate_pastebin_form()" name="pb_form">
-<div class="inputLabel">Encrypted text:</div>
-<div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5" rows="3" class="wideInput noScrollBar"
+<div class="formLabel">Encrypted text:</div>
+<div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5" rows="3" class="maxWidth noScrollBar"
 readonly="readonly" onclick="this.select()"></textarea></div>
 <div class="line"><div class="unit size1of1 lastUnit online inset">
 <input type="hidden" name="paste_name" value="github/thedod/hushbin"/>
@@ -237,7 +235,7 @@ readonly="readonly" onclick="this.select()"></textarea></div>
 value="&#8999; Clear" accesskey="c"/></div></div></div>
 <div class="main">
 <div class="line"><div class="unit size1of1 plainText outset lastUnit">
-<div class="inputLabel">Plain text:</div>
-<textarea tabindex="4" cols="23" rows="25" id="plaintext" class="wideInput"></textarea></div></div></div></div></div>
+<div class="formLabel">Plain text:</div>
+<textarea tabindex="4" cols="23" rows="25" id="plaintext" class="maxWidth"></textarea></div></div></div></div></div>
 </body>
 </html>
