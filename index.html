@@ -48,7 +48,7 @@ font-size:10pt;font-weight:bold}
 </style>
 <script type="text/javascript">
 //<![CDATA[
-var DEMOCRYPT='Dprd8QubHp3Tva8Ey6ZA54TXnN9yMjgaaVTumCudH2pyzSx3dFEqtkAbmwTN5Wij56MB+VMDypDhiqz42NQ6B1Ld+Kum85ckFdrU/a0lmRjP8JhMS76UroO9ndGmHbeywBOoQDyQNNTtqRF1zl/nFTIF9u+6+6z5RB35bZGwiPx+'
+DEMOCIPHER='elL4criHRhL8mRKsSaIWGd6Zf4l61yWgn8VbBw4q8p26UtmcVK1clBo+6UfnLuot91lKNZqmw5ByqDndDD40xZjvRm26ZVrwRl6Yvbxv+GKVss5wBHqHHKXgQZYgmA9WoIqpKhVbVVUR/HXxAhzay3It+DPQzQi0P87rR4jd6JsgtjAO8fVYYUzU7XVLu5diUCQ+jUcyFCQ7I48/pcSlcWBpf6PihKRezqvTsARnT24xA64K7JpgWcxjTEI50vY71JJlMO/o86D9mKzt2rImyK8SKz4vYsFxMLgqTEaRkzKKF/vcx2xBPvHXRC7o4TslWpQlCHr5CQ4p3Dw5cMKAlW5/+i1EkByk1ZxCQTfcld6OdDMrvvQsAG/Df+fR8KSmGU7LC5DS050mNfuR9Ts4I7ztWNQVhjobruJvvGpeZc/pFd5SAIh5IwOQIfm8/8NUSMqM3mb30Mb';
 function str2bin(s){
 // utf-16=>utf-8=>binary-array
 var result=new Array();
@@ -161,7 +161,7 @@ if (key.length){
 $$('plaintext').value=cs2decrypt(key,$$('in-cipher').value)} else {
 show_msg("Empty pass phrase")}}
 function demo(){
-$$('in-cipher').value=DEMOCRYPT;
+$$('in-cipher').value=DEMOCIPHER;
 $$('in-key').value='';
 $$('in-key').focus();
 show_msg('Pass phare is "lamefraze" (evidently it\'s not a strong one ;) )')}
@@ -190,11 +190,8 @@ HushBin - Tweetable secrets</div>
 <div class="line"><div class="unit crypt lastUnit">
 <div class="legend">Read a secret</div>
 <div class="line"><div class="unit online lastUnit">
-<strong><a href="http://wiki.github.com/thedod/hushbin/">Instructions are here</a></strong>, but here's a demo:<br/>
-<input type="button" onclick="demo()" value="paste demo encrypted secret"/><br/>
-To make its encrypted secrets tweetable, <em>HushBin</em> keeps them at the
-<a href="http://pastebin.com/">pastebin.com</a> storage service.
-See our <strong><a href="http://pastebin.com/6YHi7Jxa">"demo secret" pastebin</a></strong> (select all text below <strong>"SUBMIT&nbsp;A&nbsp;CORRECTION..."</strong>). Same lame pass phrase ;)
+<strong><a href="http://wiki.github.com/thedod/hushbin/">Instructions are here</a></strong>. Here's a quick demo:<br/>
+<input type="button" onclick="demo()" value="Paste demo encrypted secret &#8628;"/>
 </div></div>
 <div class="line">
 <div class="unit lastUnit">
