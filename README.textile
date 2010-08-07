@@ -8,11 +8,11 @@ See "demo":http://thedod.github.com/hushbin/ and "documentation":http://wiki.git
 
 h3. Project related gossip
 
-Whenever I commit, _hushbin.html_ is Less than 10K. This is because I want to submit it (before 25th of August) to the "10K apart":http://10k.aneventapart.com/ competition.
+Whenever I commit, _index.html_ is Less than 10K. This is because I want to submit it (before 25th of August) to the "10K apart":http://10k.aneventapart.com/ competition.
 
-The file _hushbin.html_ is somewhat minimized (mainly there are no indentations) but it's still readable.
+The file _index.html_ is somewhat minimized (mainly there are no indentations) but it's still readable.
 There are comments, long identifiers, and additional fluff in case there's need for some extra bytes.
-_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _hushbin.html_ (e.g. tidy.html has the wrong charset definition. See if I care :) ).
+_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _index.html_ (e.g. _tidy.html_ has the wrong charset definition. See if I care :) ).
 
 Cheers,
 "@TheRealDod":http://twitter.com/TheRealDod
