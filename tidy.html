@@ -5,7 +5,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org">
   <meta http-equiv="Content-Type" content=
-  "text/html; charset=us-ascii">
+  "text/html; charset=utf-8">
 
   <title>HushBin - Tweetable secrets</title>
   <style type="text/css">
@@ -33,8 +33,8 @@
   a{text-decoration:none}
   a:hover{text-decoration:underline}
   p{padding:0;margin:0 0 4px 0}
-  .online{border:solid #ccc 2px; font-size:12px;background-color:#fff}
-  .crypt{border:solid #777 2px;background-color:#ddd}
+  .online{border:outset #ccc 2px;font-size:12px;background-color:#fff}
+  .crypt{background-color:#ddd}
   .plainText{background-color:#bbb}
   .plainArea{background-color:#000;color:#fff;
   font-family:"Lucida Console","Courier New",monospace;
@@ -46,13 +46,14 @@
   .noScrollBar{overflow-y:hidden}
   .pbResult{width:99%;height:60px;border:none}
   .head{font-weight:bold;text-align:center;font-size:120%}
-  .decButton{width:100%;text-align:right;position:relative;left:18px;top:4px}
-  .encButton{position:relative;left:-16px;top:4px}
+  .decButton{width:100%;text-align:right;position:relative;left:16px;top:4px}
+  .encButton{position:relative;left:-14px;top:4px}
   .pbButton{position:relative;top:-16px}
   /*]]>*/
   </style>
   <script type="text/javascript">
 //<![CDATA[
+  var DEMOCRYPT='Dprd8QubHp3Tva8Ey6ZA54TXnN9yMjgaaVTumCudH2pyzSx3dFEqtkAbmwTN5Wij56MB+VMDypDhiqz42NQ6B1Ld+Kum85ckFdrU/a0lmRjP8JhMS76UroO9ndGmHbeywBOoQDyQNNTtqRF1zl/nFTIF9u+6+6z5RB35bZGwiPx+'
   function str2bin(s){
   // utf-16=>utf-8=>binary-array
   var result=new Array();
@@ -150,7 +151,7 @@
   return bin2str(_cs2(binkey,bin))}
   // == gui ==
   function $$(i){return document.getElementById(i)} // mock jquery :)
-  function show_message(m){
+  function show_msg(m){
   alert(m); /* temporary (yeah. Right) */}
   // crypto gui actions
   function do_encrypt(){
@@ -158,17 +159,22 @@
   var text=$$('plaintext').value;
   if (text.length && key.length && key==$$('out-key-verify').value){
   $$('out-cipher').value=cs2encrypt(key,text)} else {
-  show_message("No secret text, empty pass phrase, or pass phrases don't match")}}
+  show_msg("No secret text, empty pass phrase, or pass phrases don't match")}}
   function do_decrypt(){
   var key=$$('in-key').value;
   if (key.length){
   $$('plaintext').value=cs2decrypt(key,$$('in-cipher').value)} else {
-  show_message("Empty pass phrase")}}
+  show_msg("Empty pass phrase")}}
+  function demo(){
+  $$('in-cipher').value=DEMOCRYPT;
+  $$('in-key').value='';
+  $$('in-key').focus();
+  show_msg('Pass phare is "lamefraze" (evidently it\'s not a strong one ;) )')}
   // avoid posting empty pastebins
   function validate_pastebin_form(){
   if ($$('out-cipher').value.trim().length){
   return true}
-  show_message("Encrypt something first");
+  show_msg("Encrypt something first");
   return false}
   // kb handlers
   function nop(){return false};
@@ -197,30 +203,26 @@
 
             <div class="line">
               <div class="unit online lastUnit">
-                <p><strong><a href=
+                <strong><a href=
                 "http://wiki.github.com/thedod/hushbin/">Instructions
-                are here</a></strong>, but if you're impatient,
-                here's a hands on demo:</p>
-
-                <p>To make its encrypted secrets tweetable,
+                are here</a></strong>, but here's a demo:<br>
+                <input type="button" onclick="demo()" value=
+                "paste demo encrypted secret"><br>
+                To make its encrypted secrets tweetable,
                 <em>HushBin</em> keeps them at the <a href=
                 "http://pastebin.com/">pastebin.com</a> storage
-                service. if you go to our <strong><a href=
+                service. See our <strong><a href=
                 "http://pastebin.com/6YHi7Jxa">"demo secret"
-                pastebin</a></strong>, you'll see a line saying
-                <strong>"SUBMIT&nbsp;A&nbsp;CORRECTION..."</strong>,
-                and a text area below it.</p>
-
-                <p>Select all text there and copy / paste it below
-                &#9660;<br>
-                The pass phrase is <strong>lamefraze</strong>.</p>
+                pastebin</a></strong> (select all text below
+                <strong>"SUBMIT&nbsp;A&nbsp;CORRECTION..."</strong>).
+                Same lame pass phrase ;)
               </div>
             </div>
 
             <div class="line">
               <div class="unit lastUnit">
                 <div class="formLabel">
-                  &#9660; Encrypted input:
+                  ▼ Encrypted input:
                 </div>
 
                 <div>
@@ -242,7 +244,7 @@
 
                 <div class="decButton">
                   <input tabindex="3" onclick="do_decrypt()" type=
-                  "button" value="&#8627; Decrypt &#9654;">
+                  "button" value="↳ Decrypt ▶">
                 </div>
               </div>
             </div>
@@ -290,7 +292,7 @@
 
                 <div class="encButton">
                   <input tabindex="7" onclick="do_encrypt()" type=
-                  "button" value="&#9654; Encrypt &#8628;">
+                  "button" value="▶ Encrypt ↴">
                 </div>
               </div>
             </div>
@@ -302,7 +304,7 @@
                 "return run_if_enter(nop)" onsubmit=
                 "return validate_pastebin_form()" name="pb_form">
                   <div class="formLabel">
-                    &#9660; Encrypted output:
+                    ▼ Encrypted output:
                   </div>
 
                   <div>
@@ -322,7 +324,7 @@
                       <div class="pbButton">
                         <input tabindex="9" id="pastebin_button"
                         type="submit" value=
-                        "&#9660; Create a tweetable pastebin">
+                        "▼ Create a tweetable pastebin">
                       </div><iframe class="pbResult" id="pb_result"
                       name="pb_result"></iframe>
                     </div>
