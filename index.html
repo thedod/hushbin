@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>HushBin - tweetable secrets</title>
+<title>HushBin - Tweetable secrets</title>
 <style type="text/css">
 /*<![CDATA[*/
 /* Based on http://oocss.org */
@@ -21,29 +21,29 @@ body{_text-align:center;}/* IE5.5 */
 .size1of1{float:none;}
 .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
 /* Own overrides */
-.page{width:auto}
-.rightCol{width:250px}
+.page{width:auto;font-size:16px}
+.leftCol,.rightCol{width:300px}
 .unit{margin:2px;padding: 4px;}
 /* Own styles */
-a {text-decoration:none}
-a:hover {text-decoration:underline}
-.online{background-color:#efdfff; font-size:12px}
-.crypt{background-color:#ffcfcf}
-.plainText{background-color:#cfffcf}
-.spiffy{color:#ff0000;text-shadow:gray 1px 1px 3px}
+a{text-decoration:none}
+a:hover{text-decoration:underline}
+p{padding:0;margin:0 0 4px 0}
+.online{border:solid #ccc 2px; font-size:12px;background-color:#fff}
+.crypt{border:solid #777 2px;background-color:#ddd}
+.plainText{background-color:#bbb}
+.plainArea{background-color:#000;color:#fff;
+font-family:"Lucida Console","Courier New",monospace;
+font-size:10pt;font-weight:bold}
+.online,.crypt,.plainText, .plainArea, .maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
+.legend{text-shadow:#777 1px 1px 2px}
 .formLabel{font-weight:bold;font-size:80%;text-shadow:white 1px 1px 0.5px}
-.maxWidth{width:99%}
+.maxWidth ,.plainArea{width:99%}
 .noScrollBar{overflow-y:hidden}
-.online,.crypt,.plainText,.maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
-.inset{border:inset #efefef 2px}
-.outset{border:outset #efefef 2px}
 .pbResult{width:99%;height:60px;border:none}
 .head{font-weight:bold;text-align:center;font-size:120%}
-.decButton{width:100%;text-align:right;position:relative;left:16px;top:4px}
+.decButton{width:100%;text-align:right;position:relative;left:18px;top:4px}
 .encButton{position:relative;left:-16px;top:4px}
 .pbButton{position:relative;top:-16px}
-.clearDiv{text-align:center;padding:8px 0}
-.clearButton{padding:2px}
 /*]]>*/
 </style>
 <script type="text/javascript">
@@ -144,9 +144,7 @@ var binkey=str2bin(key).concat(bin.slice(0,10));
 bin=bin.slice(10);
 return bin2str(_cs2(binkey,bin))}
 // == gui ==
-// "mock jquery" functions
-function $$(i){return document.getElementById(i)}
-function $$$(t){return document.getElementsByTagName(t)}
+function $$(i){return document.getElementById(i)} // mock jquery :)
 function show_message(m){
 alert(m); /* temporary (yeah. Right) */}
 // crypto gui actions
@@ -155,7 +153,7 @@ var key=$$('out-key').value;
 var text=$$('plaintext').value;
 if (text.length && key.length && key==$$('out-key-verify').value){
 $$('out-cipher').value=cs2encrypt(key,text)} else {
-show_message("Empty message, empty pass phrase, or pass phrases don't match")}}
+show_message("No secret text, empty pass phrase, or pass phrases don't match")}}
 function do_decrypt(){
 var key=$$('in-key').value;
 if (key.length){
@@ -172,7 +170,7 @@ function nop(){return false};
 function run_if_enter(f){if (window.event && window.event.keyCode==13){return f() && false}; return true}
 // onload
 function init(){
-$$('pb_form').target='pb_result';linx=$$$('a');
+$$('pb_form').target='pb_result';linx=document.getElementsByTagName('a');
 for (i in linx){l=linx[i]; if (l.href && !l.href.match('#'))l.target='_blank'}}
 //]]>
 </script>
@@ -180,16 +178,20 @@ for (i in linx){l=linx[i]; if (l.href && !l.href.match('#'))l.target='_blank'}}
 <body onload="init()">
 <div class="page">
 <div class="head">
-HushBin - tweetable secrets</div>
+HushBin - Tweetable secrets</div>
 <div class="body">
 <div class="leftCol">
 <div class="line"><div class="unit crypt lastUnit">
-<div class="line"><div class="unit online inset lastUnit">
-<a href="http://wiki.github.com/thedod/hushbin/">Instructions are here</a>, but if you're impatient,
-try our demo secret. We keep it at a <a href="http://pastebin.com/6YHi7Jxa">pastebin page</a>.
-Go there, and below the <strong>"SUBMIT A CORRECTION..."</strong> line you'll see a text area.
-Select all text there and copy / paste it below &#9660;<br/>
-The pass phrase is <strong>lamefraze</strong> (no. It's <em>not</em> strong enough for real secrets ;) ).
+<div class="legend">Read a secret</div>
+<div class="line"><div class="unit online lastUnit">
+<p><strong><a href="http://wiki.github.com/thedod/hushbin/">Instructions are here</a></strong>, but if you're impatient,
+here's a hands on demo:</p>
+<p>To make its encrypted secrets tweetable, <em>HushBin</em> keeps them at the
+<a href="http://pastebin.com/">pastebin.com</a> storage service.
+if you go to our <strong><a href="http://pastebin.com/6YHi7Jxa">"demo secret" pastebin</a></strong>,
+you'll see a line saying <strong>"SUBMIT&nbsp;A&nbsp;CORRECTION..."</strong>, and a text area below it.</p>
+<p>Select all text there and copy / paste it below &#9660;<br/>
+The pass phrase is <strong>lamefraze</strong>.</p>
 </div></div>
 <div class="line">
 <div class="unit lastUnit">
@@ -203,8 +205,9 @@ The pass phrase is <strong>lamefraze</strong> (no. It's <em>not</em> strong enou
 <input tabindex="3" onclick="do_decrypt()" type="button" value="&#8627; Decrypt &#9654;"/></div></div></div></div></div></div>
 <div class="rightCol">
 <div class="line">
-<div class="unit size1of1 spiffy lastUnit">Before encrypting anything sensitive, read the <a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div></div>
+<div class="unit size1of1 lastUnit"><strong>Warning:</strong> Before encrypting any <em>real</em> secrets, read the <a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div></div>
 <div class="line"><div class="unit size1of1 lastUnit crypt">
+<div class="legend">Write a secret</div>
 <div class="line"><div class="unit size1of1 lastUnit">
 <div class="formLabel">
 <a href="http://wiki.github.com/thedod/hushbin/strong-pass-phrases">Strong</a> pass phrase:</div>
@@ -219,16 +222,15 @@ onkeypress="return run_if_enter(do_encrypt)"/></div>
 <div class="formLabel">&#9660; Encrypted output:</div>
 <div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5" rows="3" class="maxWidth noScrollBar"
 readonly="readonly" onclick="this.select()"></textarea></div>
-<div class="line"><div class="unit size1of1 lastUnit online inset">
+<div class="line"><div class="unit size1of1 online lastUnit">
 <input type="hidden" name="paste_name" value="bit.ly/hushbin"/>
 <input type="hidden" name="paste_private" value="1"/>
 <div class="pbButton"><input tabindex="9" id="pastebin_button" type="submit" value="&#9660; Create a tweetable pastebin"/></div>
 <iframe class="pbResult" id="pb_result" name="pb_result"></iframe></div></div></form></div></div></div>
-<div class="clearDiv"><input tabindex="10" type="button" class="clearButton" onclick="window.location.reload()"
-value="&#8999; Wipe" accesskey="w"/></div></div></div>
+</div></div>
 <div class="main">
-<div class="line"><div class="unit size1of1 plainText outset lastUnit">
-<div class="formLabel">Plain text:</div>
-<textarea tabindex="4" cols="23" rows="23" id="plaintext" class="maxWidth"></textarea></div></div></div></div></div>
+<div class="line"><div class="unit size1of1 plainText lastUnit">
+<div class="formLabel">Secret:</div>
+<textarea tabindex="4" cols="23" rows="23" id="plaintext" class="plainArea"></textarea></div></div></div></div></div>
 </body>
 </html>
