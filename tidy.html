@@ -44,7 +44,7 @@
   .formLabel{font-weight:bold;font-size:80%;text-shadow:white 1px 1px 0.5px}
   .maxWidth ,.plainArea{width:99%}
   .noScrollBar{overflow-y:hidden}
-  .pbResult{width:99%;height:60px;border:none}
+  .pbResult{width:99%;height:40px;border:none}
   .head{font-weight:bold;text-align:center;font-size:120%}
   .decButton{width:100%;text-align:right;position:relative;left:16px;top:4px}
   .encButton{position:relative;left:-14px;top:4px}
@@ -53,7 +53,7 @@
   </style>
   <script type="text/javascript">
 //<![CDATA[
-  var DEMOCRYPT='Dprd8QubHp3Tva8Ey6ZA54TXnN9yMjgaaVTumCudH2pyzSx3dFEqtkAbmwTN5Wij56MB+VMDypDhiqz42NQ6B1Ld+Kum85ckFdrU/a0lmRjP8JhMS76UroO9ndGmHbeywBOoQDyQNNTtqRF1zl/nFTIF9u+6+6z5RB35bZGwiPx+'
+  DEMOCIPHER='elL4criHRhL8mRKsSaIWGd6Zf4l61yWgn8VbBw4q8p26UtmcVK1clBo+6UfnLuot91lKNZqmw5ByqDndDD40xZjvRm26ZVrwRl6Yvbxv+GKVss5wBHqHHKXgQZYgmA9WoIqpKhVbVVUR/HXxAhzay3It+DPQzQi0P87rR4jd6JsgtjAO8fVYYUzU7XVLu5diUCQ+jUcyFCQ7I48/pcSlcWBpf6PihKRezqvTsARnT24xA64K7JpgWcxjTEI50vY71JJlMO/o86D9mKzt2rImyK8SKz4vYsFxMLgqTEaRkzKKF/vcx2xBPvHXRC7o4TslWpQlCHr5CQ4p3Dw5cMKAlW5/+i1EkByk1ZxCQTfcld6OdDMrvvQsAG/Df+fR8KSmGU7LC5DS050mNfuR9Ts4I7ztWNQVhjobruJvvGpeZc/pFd5SAIh5IwOQIfm8/8NUSMqM3mb30Mb';
   function str2bin(s){
   // utf-16=>utf-8=>binary-array
   var result=new Array();
@@ -166,7 +166,7 @@
   $$('plaintext').value=cs2decrypt(key,$$('in-cipher').value)} else {
   show_msg("Empty pass phrase")}}
   function demo(){
-  $$('in-cipher').value=DEMOCRYPT;
+  $$('in-cipher').value=DEMOCIPHER;
   $$('in-key').value='';
   $$('in-key').focus();
   show_msg('Pass phare is "lamefraze" (evidently it\'s not a strong one ;) )')}
@@ -205,17 +205,9 @@
               <div class="unit online lastUnit">
                 <strong><a href=
                 "http://wiki.github.com/thedod/hushbin/">Instructions
-                are here</a></strong>, but here's a demo:<br>
+                are here</a></strong>. Here's a quick demo:<br>
                 <input type="button" onclick="demo()" value=
-                "paste demo encrypted secret"><br>
-                To make its encrypted secrets tweetable,
-                <em>HushBin</em> keeps them at the <a href=
-                "http://pastebin.com/">pastebin.com</a> storage
-                service. See our <strong><a href=
-                "http://pastebin.com/6YHi7Jxa">"demo secret"
-                pastebin</a></strong> (select all text below
-                <strong>"SUBMIT&nbsp;A&nbsp;CORRECTION..."</strong>).
-                Same lame pass phrase ;)
+                "Paste demo encrypted secret ↴">
               </div>
             </div>
 
@@ -342,7 +334,7 @@
             <div class="formLabel">
               Secret:
             </div>
-            <textarea tabindex="4" cols="23" rows="23" id=
+            <textarea tabindex="4" cols="23" rows="22" id=
             "plaintext" class="plainArea">
 </textarea>
           </div>

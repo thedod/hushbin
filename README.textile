@@ -12,7 +12,7 @@ Whenever I commit, _index.html_ is Less than 10K. This is because I want to subm
 
 The file _index.html_ is somewhat minimized (mainly there are no indentations) but it's still readable.
 There are comments, long identifiers, and additional fluff in case there's need for some extra bytes.
-_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _index.html_ (e.g. _tidy.html_ has the wrong charset definition. See if I care :) ).
+_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _index.html_.
 
 Cheers,
 "@TheRealDod":http://twitter.com/TheRealDod
