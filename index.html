@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>HushBin - secrets you can tweet</title>
+<title>HushBin - tweetable secrets</title>
 <style type="text/css">
 /*<![CDATA[*/
 /* Based on http://oocss.org */
@@ -24,12 +24,10 @@ body{_text-align:center;}/* IE5.5 */
 .page{width:auto}
 .rightCol{width:250px}
 .unit{margin:2px;padding: 4px;}
-.leftCol{margin-right:4px}
-.rightCol{margin-left:4px}
 /* Own styles */
 a {text-decoration:none}
 a:hover {text-decoration:underline}
-.online{background-color:#efdfff; font-size:80%}
+.online{background-color:#efdfff; font-size:12px}
 .crypt{background-color:#ffcfcf}
 .plainText{background-color:#cfffcf}
 .spiffy{color:#ff0000;text-shadow:gray 1px 1px 3px}
@@ -37,13 +35,12 @@ a:hover {text-decoration:underline}
 .maxWidth{width:99%}
 .noScrollBar{overflow-y:hidden}
 .online,.crypt,.plainText,.maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
-#help{position:fixed;left:0;top:0;padding:4px 6px;font-weight:bold;border:solid white 1px;z-index:23}
 .inset{border:inset #efefef 2px}
 .outset{border:outset #efefef 2px}
 .pbResult{width:99%;height:60px;border:none}
 .head{font-weight:bold;text-align:center;font-size:120%}
-.decButton{width:100%;text-align:right;position:relative;left:20px;top:4px}
-.encButton{position:relative;left:-20px;top:4px}
+.decButton{width:100%;text-align:right;position:relative;left:16px;top:4px}
+.encButton{position:relative;left:-16px;top:4px}
 .pbButton{position:relative;top:-16px}
 .clearDiv{text-align:center;padding:8px 0}
 .clearButton{padding:2px}
@@ -170,9 +167,6 @@ if ($$('out-cipher').value.trim().length){
 return true}
 show_message("Encrypt something first");
 return false}
-// clear inputs
-function _clear_aux(v){for (i in v) try{if (v[i].type=='password'||v[i].type.slice(0,4)=='text') v[i].value=''}catch(e){}}
-function clear_inputs(){_clear_aux($$$('input'));_clear_aux($$$('textarea'))}
 // kb handlers
 function nop(){return false};
 function run_if_enter(f){if (window.event && window.event.keyCode==13){return f() && false}; return true}
@@ -185,34 +179,31 @@ for (i in linx){l=linx[i]; if (l.href && !l.href.match('#'))l.target='_blank'}}
 </head>
 <body onload="init()">
 <div class="page">
-<div id="help" class="online spiffy">
-<a href="http://wiki.github.com/thedod/hushbin/">Instructions</a></div>
 <div class="head">
-HushBin - secrets you can tweet</div>
+HushBin - tweetable secrets</div>
 <div class="body">
 <div class="leftCol">
 <div class="line"><div class="unit crypt lastUnit">
 <div class="line"><div class="unit online inset lastUnit">
-Try our demo encrypted text: Go to this <a href="http://pastebin.com/aNQiMXTZ">pastebin page</a>.
-Below the <strong>"SUBMIT A CORRECTION..."</strong>
-line there's a text area. Select all text there and copy / paste it below.<br/>
-The pass phrase for the demo is:
-<em>no woman no fly robin fly</em> (without
-spaces).<br/>
-<strong>Note:</strong> Never use this pass phrase
-for anything secret. Everybody knows it already ;)</div></div>
+<a href="http://wiki.github.com/thedod/hushbin/">Instructions are here</a>, but if you're impatient,
+try our demo secret. We keep it at a <a href="http://pastebin.com/6YHi7Jxa">pastebin page</a>.
+Go there, and below the <strong>"SUBMIT A CORRECTION..."</strong> line you'll see a text area.
+Select all text there and copy / paste it below &#9660;<br/>
+The pass phrase is <strong>lamefraze</strong> (no. It's <em>not</em> strong enough for real secrets ;) ).
+</div></div>
 <div class="line">
 <div class="unit lastUnit">
 <div class="formLabel">
-Encrypted text:</div>
+&#9660; Encrypted input:</div>
 <div>
 <textarea tabindex="1" id="in-cipher" cols="5" rows="3" class="maxWidth noScrollBar" onclick="this.select()"></textarea></div>
 <div class="formLabel">Pass phrase:</div>
 <div><input tabindex="2" class="maxWidth" type="password" id="in-key" onkeypress="run_if_enter(do_decrypt)"/></div>
 <div class="decButton">
-<input tabindex="3" onclick="do_decrypt()" type="button" value="&#9654; Decrypt"/></div></div></div></div></div></div>
+<input tabindex="3" onclick="do_decrypt()" type="button" value="&#8627; Decrypt &#9654;"/></div></div></div></div></div></div>
 <div class="rightCol">
-<div class="spiffy">Before encrypting anything sensitive, read the <a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div>
+<div class="line">
+<div class="unit size1of1 spiffy lastUnit">Before encrypting anything sensitive, read the <a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div></div>
 <div class="line"><div class="unit size1of1 lastUnit crypt">
 <div class="line"><div class="unit size1of1 lastUnit">
 <div class="formLabel">
@@ -222,22 +213,22 @@ Encrypted text:</div>
 <div><input tabindex="6" class="maxWidth" type="password" id="out-key-verify"
 onkeypress="return run_if_enter(do_encrypt)"/></div>
 <div class="encButton">
-<input tabindex="7" onclick="do_encrypt()" type="button" value="&#9654; Encrypt"/></div></div></div>
+<input tabindex="7" onclick="do_encrypt()" type="button" value="&#9654; Encrypt &#8628;"/></div></div></div>
 <div class="line"><div class="unit size1of1 lastUnit">
 <form id="pb_form" method="post" action="http://pastebin.com/api_public.php" onkeypress="return run_if_enter(nop)" onsubmit="return validate_pastebin_form()" name="pb_form">
-<div class="formLabel">Encrypted text:</div>
+<div class="formLabel">&#9660; Encrypted output:</div>
 <div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5" rows="3" class="maxWidth noScrollBar"
 readonly="readonly" onclick="this.select()"></textarea></div>
 <div class="line"><div class="unit size1of1 lastUnit online inset">
-<input type="hidden" name="paste_name" value="github/thedod/hushbin"/>
+<input type="hidden" name="paste_name" value="bit.ly/hushbin"/>
 <input type="hidden" name="paste_private" value="1"/>
-<div class="pbButton"><input tabindex="9" id="pastebin_button" type="submit" value="&#9660; Post to pastebin"/></div>
+<div class="pbButton"><input tabindex="9" id="pastebin_button" type="submit" value="&#9660; Create a tweetable pastebin"/></div>
 <iframe class="pbResult" id="pb_result" name="pb_result"></iframe></div></div></form></div></div></div>
-<div class="clearDiv"><input tabindex="10" type="button" class="clearButton" onclick="clear_inputs()"
-value="&#8999; Clear" accesskey="c"/></div></div></div>
+<div class="clearDiv"><input tabindex="10" type="button" class="clearButton" onclick="window.location.reload()"
+value="&#8999; Wipe" accesskey="w"/></div></div></div>
 <div class="main">
 <div class="line"><div class="unit size1of1 plainText outset lastUnit">
 <div class="formLabel">Plain text:</div>
-<textarea tabindex="4" cols="23" rows="25" id="plaintext" class="maxWidth"></textarea></div></div></div></div></div>
+<textarea tabindex="4" cols="23" rows="23" id="plaintext" class="maxWidth"></textarea></div></div></div></div></div>
 </body>
 </html>
