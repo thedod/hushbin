@@ -52,7 +52,7 @@
   </style>
   <script type="text/javascript">
 //<![CDATA[
-  DEMOCIPHER='elL4criHRhL8mRKsSaIWGd6Zf4l61yWgn8VbBw4q8p26UtmcVK1clBo+6UfnLuot91lKNZqmw5ByqDndDD40xZjvRm26ZVrwRl6Yvbxv+GKVss5wBHqHHKXgQZYgmA9WoIqpKhVbVVUR/HXxAhzay3It+DPQzQi0P87rR4jd6JsgtjAO8fVYYUzU7XVLu5diUCQ+jUcyFCQ7I48/pcSlcWBpf6PihKRezqvTsARnT24xA64K7JpgWcxjTEI50vY71JJlMO/o86D9mKzt2rImyK8SKz4vYsFxMLgqTEaRkzKKF/vcx2xBPvHXRC7o4TslWpQlCHr5CQ4p3Dw5cMKAlW5/+i1EkByk1ZxCQTfcld6OdDMrvvQsAG/Df+fR8KSmGU7LC5DS050mNfuR9Ts4I7ztWNQVhjobruJvvGpeZc/pFd5SAIh5IwOQIfm8/8NUSMqM3mb30Mb';
+  DEMOCIPHER='zq3uM5g6cd+E+xJ5BjQf2oe7IbBbBlWHYMaEpWTg6aWyET7Z6CVDjW2KHGyeQiMzONiRzotHkvfmcQI+BkstqCYip8bgjLlQ1DiGBN0snaiYvHxYhzI//L2EcQlrad0zS5I4xLvjZQraEUlxmqZW6Ha9egT0zco8wlahbVTAku3uc7De0Pxxd4U83f4OrKR7vRd4YRXdx+3VfCJJZmf3MW8MXaVz7+JOVSPvSTetm1YBZbg5bmwGqI+/QoatLSln5B+oyQfPmtMvffRF7LWKPjGLF7J32EguvHokBd33ZpvCCiY1LHBia53OfNqEfEHchb4kniAZjDWbC+eXKSEwlZZxW8JSigik5n7xfrnpShuaWtTOAoc2n+4gLmUBb1Eu7VqqZcnqQvw6pMww4GausXLbZlMmdZ15lirnzM+OlcPiNfOtW88lcrRzFNTY4FGPMHHJeZWG8GLHkbTopC6oE9ctE/6u';
   function str2bin(s){
   // utf-16=>utf-8=>binary-array
   var result=new Array();
@@ -112,7 +112,7 @@
   return res}
   //== crypto ==
   function make_iv(){
-  // Generate a random 10 byte initialization vector (binary array)
+  // Generate a random 10 byte iv
   var result=new Array();
   for (var i=0 ; i<10 ; i++)
   result[i]=256 * Math.random();
@@ -177,7 +177,8 @@
   return false}
   // kb handlers
   function nop(){return false};
-  function run_if_enter(f){if (window.event && window.event.keyCode==13){return f() && false}; return true}
+  function run_if_enter(e,f){var k=0;try{k=e.which}catch(E){try{k=e.keyCode}catch(E){}};
+  if (k==13){return f() && false}; return true}
   // onload
   function init(){
   $$('pb_form').target='pb_result';linx=document.getElementsByTagName('a');
@@ -230,7 +231,7 @@
                 <div>
                   <input tabindex="2" class="maxWidth" type=
                   "password" id="in-key" onkeypress=
-                  "run_if_enter(do_decrypt)">
+                  "run_if_enter(event,do_decrypt)">
                 </div>
 
                 <div class="decButton">
@@ -278,7 +279,7 @@
                 <div>
                   <input tabindex="6" class="maxWidth" type=
                   "password" id="out-key-verify" onkeypress=
-                  "return run_if_enter(do_encrypt)">
+                  "return run_if_enter(event,do_encrypt)">
                 </div>
 
                 <div class="encButton">
@@ -292,7 +293,7 @@
               <div class="unit size1of1 lastUnit">
                 <form id="pb_form" method="post" action=
                 "http://pastebin.com/api_public.php" onkeypress=
-                "return run_if_enter(nop)" onsubmit=
+                "return run_if_enter(event,nop)" onsubmit=
                 "return validate_pastebin_form()" name="pb_form">
                   <div class="formLabel">
                     ▼ Encrypted output:

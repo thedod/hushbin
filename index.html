@@ -47,7 +47,7 @@ font-family:"Lucida Console","Courier New",monospace}
 </style>
 <script type="text/javascript">
 //<![CDATA[
-DEMOCIPHER='elL4criHRhL8mRKsSaIWGd6Zf4l61yWgn8VbBw4q8p26UtmcVK1clBo+6UfnLuot91lKNZqmw5ByqDndDD40xZjvRm26ZVrwRl6Yvbxv+GKVss5wBHqHHKXgQZYgmA9WoIqpKhVbVVUR/HXxAhzay3It+DPQzQi0P87rR4jd6JsgtjAO8fVYYUzU7XVLu5diUCQ+jUcyFCQ7I48/pcSlcWBpf6PihKRezqvTsARnT24xA64K7JpgWcxjTEI50vY71JJlMO/o86D9mKzt2rImyK8SKz4vYsFxMLgqTEaRkzKKF/vcx2xBPvHXRC7o4TslWpQlCHr5CQ4p3Dw5cMKAlW5/+i1EkByk1ZxCQTfcld6OdDMrvvQsAG/Df+fR8KSmGU7LC5DS050mNfuR9Ts4I7ztWNQVhjobruJvvGpeZc/pFd5SAIh5IwOQIfm8/8NUSMqM3mb30Mb';
+DEMOCIPHER='zq3uM5g6cd+E+xJ5BjQf2oe7IbBbBlWHYMaEpWTg6aWyET7Z6CVDjW2KHGyeQiMzONiRzotHkvfmcQI+BkstqCYip8bgjLlQ1DiGBN0snaiYvHxYhzI//L2EcQlrad0zS5I4xLvjZQraEUlxmqZW6Ha9egT0zco8wlahbVTAku3uc7De0Pxxd4U83f4OrKR7vRd4YRXdx+3VfCJJZmf3MW8MXaVz7+JOVSPvSTetm1YBZbg5bmwGqI+/QoatLSln5B+oyQfPmtMvffRF7LWKPjGLF7J32EguvHokBd33ZpvCCiY1LHBia53OfNqEfEHchb4kniAZjDWbC+eXKSEwlZZxW8JSigik5n7xfrnpShuaWtTOAoc2n+4gLmUBb1Eu7VqqZcnqQvw6pMww4GausXLbZlMmdZ15lirnzM+OlcPiNfOtW88lcrRzFNTY4FGPMHHJeZWG8GLHkbTopC6oE9ctE/6u';
 function str2bin(s){
 // utf-16=>utf-8=>binary-array
 var result=new Array();
@@ -107,7 +107,7 @@ shift = (shift + 2) % 8}}
 return res}
 //== crypto ==
 function make_iv(){
-// Generate a random 10 byte initialization vector (binary array)
+// Generate a random 10 byte iv
 var result=new Array();
 for (var i=0 ; i<10 ; i++)
 result[i]=256 * Math.random();
@@ -172,7 +172,8 @@ show_msg("Encrypt something first.");
 return false}
 // kb handlers
 function nop(){return false};
-function run_if_enter(f){if (window.event && window.event.keyCode==13){return f() && false}; return true}
+function run_if_enter(e,f){var k=0;try{k=e.which}catch(E){try{k=e.keyCode}catch(E){}};
+if (k==13){return f() && false}; return true}
 // onload
 function init(){
 $$('pb_form').target='pb_result';linx=document.getElementsByTagName('a');
@@ -199,7 +200,7 @@ HushBin - Tweetable secrets</div>
 <div>
 <textarea tabindex="1" id="in-cipher" cols="5" rows="3" class="maxWidth noScrollBar" onclick="this.select()"></textarea></div>
 <div class="formLabel">Pass phrase:</div>
-<div><input tabindex="2" class="maxWidth" type="password" id="in-key" onkeypress="run_if_enter(do_decrypt)"/></div>
+<div><input tabindex="2" class="maxWidth" type="password" id="in-key" onkeypress="run_if_enter(event,do_decrypt)"/></div>
 <div class="decButton">
 <input tabindex="3" onclick="do_decrypt()" type="button" value="&#8627; Decrypt &#9654;"/></div></div></div></div></div></div>
 <div class="rightCol">
@@ -213,11 +214,11 @@ HushBin - Tweetable secrets</div>
 <div><input tabindex="5" class="maxWidth" type="password" id="out-key"/></div>
 <div class="formLabel">Verify pass phrase:</div>
 <div><input tabindex="6" class="maxWidth" type="password" id="out-key-verify"
-onkeypress="return run_if_enter(do_encrypt)"/></div>
+onkeypress="return run_if_enter(event,do_encrypt)"/></div>
 <div class="encButton">
 <input tabindex="7" onclick="do_encrypt()" type="button" value="&#9654; Encrypt &#8628;"/></div></div></div>
 <div class="line"><div class="unit size1of1 lastUnit">
-<form id="pb_form" method="post" action="http://pastebin.com/api_public.php" onkeypress="return run_if_enter(nop)" onsubmit="return validate_pastebin_form()" name="pb_form">
+<form id="pb_form" method="post" action="http://pastebin.com/api_public.php" onkeypress="return run_if_enter(event,nop)" onsubmit="return validate_pastebin_form()" name="pb_form">
 <div class="formLabel">&#9660; Encrypted output:</div>
 <div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5" rows="3" class="maxWidth noScrollBar"
 readonly="readonly" onclick="this.select()"></textarea></div>
