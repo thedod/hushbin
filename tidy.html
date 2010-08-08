@@ -159,22 +159,22 @@
   var text=$$('plaintext').value;
   if (text.length && key.length && key==$$('out-key-verify').value){
   $$('out-cipher').value=cs2encrypt(key,text)} else {
-  show_msg("No secret text, empty pass phrase, or pass phrases don't match")}}
+  show_msg("No secret text, empty pass phrase,\nor pass phrases don't match.")}}
   function do_decrypt(){
   var key=$$('in-key').value;
   if (key.length){
   $$('plaintext').value=cs2decrypt(key,$$('in-cipher').value)} else {
-  show_msg("Empty pass phrase")}}
+  show_msg("Empty pass phrase.")}}
   function demo(){
   $$('in-cipher').value=DEMOCIPHER;
   $$('in-key').value='';
   $$('in-key').focus();
-  show_msg('Pass phare is "lamefraze" (evidently it\'s not a strong one ;) )')}
+  show_msg('Pass phare is "lamefraze".\nEvidently it\'s not a strong one ;)')}
   // avoid posting empty pastebins
   function validate_pastebin_form(){
   if ($$('out-cipher').value.trim().length){
   return true}
-  show_msg("Encrypt something first");
+  show_msg("Encrypt something first.");
   return false}
   // kb handlers
   function nop(){return false};
