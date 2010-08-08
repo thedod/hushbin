@@ -30,21 +30,21 @@
   .leftCol,.rightCol{width:300px}
   .unit{margin:2px;padding: 4px;}
   /* Own styles */
-  a{text-decoration:none}
+  a{text-decoration:none;color:#090}
   a:hover{text-decoration:underline}
   p{padding:0;margin:0 0 4px 0}
+  .head{font-weight:bold;text-align:center;font-size:23px;padding-bottom:4px}
+  .legend{text-shadow:#777 1px 1px 2px}
   .online{border:outset #ccc 2px;font-size:12px;background-color:#fff}
   .crypt{background-color:#ddd}
   .secret{background-color:#bbb}
-  .secretTxt{background-color:#000;color:#0f0;padding:8px;width:95%;font-size:10pt;font-weight:bold;
-  font-family:"Lucida Console","Courier New",monospace}
+  .secretTxt{background-color:#000;color:#0f0;padding:8px;width:95%;font-size:10pt;font-weight:bold}
+  .head,.secretTxt{font-family:"Courier New",monospace}
   .online,.crypt,.secret,.secretTxt,.maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
-  .legend{text-shadow:#777 1px 1px 2px}
   .formLabel{font-weight:bold;font-size:80%;text-shadow:white 1px 1px 0.5px}
   .maxWidth {width:99%}
   .noScrollBar{overflow-y:hidden}
   .pbResult{width:99%;height:50px;border:none}
-  .head{font-weight:bold;text-align:center;font-size:120%}
   .decButton{width:100%;text-align:right;position:relative;left:16px;top:4px}
   .encButton{position:relative;left:-14px;top:4px}
   .pbButton{position:relative;top:-16px}
@@ -54,7 +54,7 @@
 //<![CDATA[
   DEMOCIPHER='VVWx4eRIwZmo1/nO301CH/qkndNWmzaXkhfQXKSpnb5wpcL6zgmftvdq4XahyxRy0O+Tq79OcuGLQqpjsfQrdafhp9zoI5DdleK81Nd/GTAdg7HoUHTx5OZFhfiipt8/W9K1U284Y9j2C1mghSrKnEpoYfBswJkdTQYNwzz1GBoGpqyF2SiURuTPPmbCT+XQzFCqxfABtNWteUnT0RlYLw1qKdAmVJGZRDix1mOtT7aUTvILnS/BOnUXWfeTSfdV515dyE24SYoQMEaj9rwzfyDtq3QWIQWkKY/xibLgx9PthhGBcLWiP69eKQABMJ5KGHTGskug0jZRp+RU4hShq2mRN0z9+UbjinXLERUBMesEzA4pJ6YJs0wp/Zwh5B/AR3l+cYsASkTTY9vJDp8F3w7YYgXgj5uYVmLZ3/a+UPBus2ZOEJPgwKrSA0tqW4dON44ERfbgdGiBMkyoqBbgoPgK73nONa';
   function str2bin(s){
-  // utf-16=>utf-8=>binary-array
+  // utf-16=>utf-8=>bin-array
   var result=new Array();
   var c; var i; var j;
   for (i=0,j=0 ; i<s.length ; i++){
@@ -86,9 +86,9 @@
   var res='';
   var shift=0;
   var leftover=0;
-  for (var i=0; i<len; i++){
-  res+=base64lookup.charAt((bin[i] << shift | leftover) & 63);
-  leftover=bin[i] >> (6-shift);
+  for (var i=0;i<len;i++){
+  res+=base64lookup.charAt((bin[i]<<shift | leftover) & 63);
+  leftover=bin[i]>>(6-shift);
   shift+=2;
   if (shift==6 || i==len-1){res+=base64lookup.charAt(leftover);shift=0;leftover=0};
   if (i && !(i%60))res+='\r\n'}
@@ -104,15 +104,15 @@
   lookup=base64lookup.indexOf(s.charAt(i));
   if (lookup>=0){ // skip whitespace
   if (shift){
-  res[index++]=(lookup << (8-shift) & 255) | leftover}
-  leftover=lookup >> shift;
-  shift=(shift + 2) % 8}}
+  res[index++]=(lookup<<(8-shift) & 255) | leftover}
+  leftover=lookup>>shift;
+  shift=(shift+2)%8}}
   return res}
   //== crypto ==
   function make_iv(){
   // Generate a random 10 byte iv
   var result=new Array();
-  for (var i=0 ; i<10 ; i++)
+  for (var i=0;i<10;i++)
   result[i]=256 * Math.random();
   return result}
   function _cs2(key, bin){
@@ -188,7 +188,7 @@
 <body onload="init()">
   <div class="page">
     <div class="head">
-      HushBin - Tweetable secrets
+      HushBin — Tweetable secrets
     </div>
 
     <div class="body">
