@@ -31,14 +31,14 @@ p{padding:0;margin:0 0 4px 0}
 .online{border:outset #ccc 2px;font-size:12px;background-color:#fff}
 .crypt{background-color:#ddd}
 .secret{background-color:#bbb}
-.secretTxt{background-color:#000;color:#0f0;font-size:10pt;font-weight:bold;
+.secretTxt{background-color:#000;color:#0f0;padding:8px;width:95%;font-size:10pt;font-weight:bold;
 font-family:"Lucida Console","Courier New",monospace}
 .online,.crypt,.secret,.secretTxt,.maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
 .legend{text-shadow:#777 1px 1px 2px}
 .formLabel{font-weight:bold;font-size:80%;text-shadow:white 1px 1px 0.5px}
-.maxWidth ,.secretTxt{width:99%}
+.maxWidth {width:99%}
 .noScrollBar{overflow-y:hidden}
-.pbResult{width:99%;height:40px;border:none}
+.pbResult{width:99%;height:50px;border:none}
 .head{font-weight:bold;text-align:center;font-size:120%}
 .decButton{width:100%;text-align:right;position:relative;left:16px;top:4px}
 .encButton{position:relative;left:-14px;top:4px}
@@ -47,7 +47,7 @@ font-family:"Lucida Console","Courier New",monospace}
 </style>
 <script type="text/javascript">
 //<![CDATA[
-DEMOCIPHER='gg5TsangiEiZl4CRxwauL108fTYmdT8UMsErg79tA2S5bxI0ZRcg8TjUZ5tgjZWGi7TEuGs/j4jZ2Hprravbgl/pZJC2b3rV/kmLYYDwkGvoSsnixxuT9kwuXO6HB+pMF+cZjLmmHcQevDoJE5wG8IStljc4rMJZypXBNRutPKKbASaGD0RIaDdyQEojPJnYxmbW1vkez5TfdH6s8coQ0xnj4uk0GPGjhPlzB/tD4ebmKp4SgzZdw3WcvV/7SK26h/Td8jZ+BeQZ9DuKMlTyeQXjzil8K1zUsK2jphQSBdeIBhfgs1E7PLF+OprwLlypZNnjR3usDzLhVg6+5rwpedNuzdv/AKCFBQErZGtS7Zdsw64wMy+XrY4LEOQQ5nlakM6vWbJVQlBTWaKYYdeViY3x31DA2+pNb/n55deY9Jjp4/ybGsCT8nZgIFhHqzKdbCX7hcOMnqyWvBxDilIc3igmMHI/';
+DEMOCIPHER='VVWx4eRIwZmo1/nO301CH/qkndNWmzaXkhfQXKSpnb5wpcL6zgmftvdq4XahyxRy0O+Tq79OcuGLQqpjsfQrdafhp9zoI5DdleK81Nd/GTAdg7HoUHTx5OZFhfiipt8/W9K1U284Y9j2C1mghSrKnEpoYfBswJkdTQYNwzz1GBoGpqyF2SiURuTPPmbCT+XQzFCqxfABtNWteUnT0RlYLw1qKdAmVJGZRDix1mOtT7aUTvILnS/BOnUXWfeTSfdV515dyE24SYoQMEaj9rwzfyDtq3QWIQWkKY/xibLgx9PthhGBcLWiP69eKQABMJ5KGHTGskug0jZRp+RU4hShq2mRN0z9+UbjinXLERUBMesEzA4pJ6YJs0wp/Zwh5B/AR3l+cYsASkTTY9vJDp8F3w7YYgXgj5uYVmLZ3/a+UPBus2ZOEJPgwKrSA0tqW4dON44ERfbgdGiBMkyoqBbgoPgK73nONa';
 function str2bin(s){
 // utf-16=>utf-8=>binary-array
 var result=new Array();
@@ -86,7 +86,7 @@ res+=base64lookup.charAt((bin[i] << shift | leftover) & 63);
 leftover=bin[i] >> (6-shift);
 shift+=2;
 if (shift==6 || i==len-1){res+=base64lookup.charAt(leftover);shift=0;leftover=0};
-if (i && !(i%80))res+='\r\n'}
+if (i && !(i%60))res+='\r\n'}
 return res}
 function base64Decode(s){
 var len=s.length;
@@ -229,6 +229,6 @@ readonly="readonly" onclick="this.select()"></textarea></div>
 <div class="main">
 <div class="line"><div class="unit size1of1 secret lastUnit">
 <div class="formLabel">Secret:</div>
-<textarea tabindex="4" cols="23" rows="22" id="plaintext" class="secretTxt"></textarea></div></div></div></div></div>
+<textarea tabindex="4" cols="23" rows="21" id="plaintext" class="secretTxt"></textarea></div></div></div></div></div>
 </body>
 </html>
