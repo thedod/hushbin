@@ -17,7 +17,7 @@ _tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code
 h3. [Hopefully,] W3C HTML validation:
 
 * "HTML5":http://validator.w3.org/check?uri=http%3A%2F%2Fthedod.github.com%2Fhushbin%2F
-* "HTML 4.01 Transitional":http://validator.w3.org/check?uri=http%3A%2F%2Fzzzen.com%2Fhushbin.htmli&doctype=HTML+4.01+Transitional
+* "HTML 4.01 Transitional":http://validator.w3.org/check?uri=http%3A%2F%2Fthedod.github.com%2Fhushbin%2F&doctype=HTML+4.01+Transitional
 
 Cheers,
 "@TheRealDod":http://twitter.com/TheRealDod
