@@ -30,14 +30,13 @@ a:hover{text-decoration:underline}
 p{padding:0;margin:0 0 4px 0}
 .online{border:outset #ccc 2px;font-size:12px;background-color:#fff}
 .crypt{background-color:#ddd}
-.plainText{background-color:#bbb}
-.plainArea{background-color:#000;color:#fff;
-font-family:"Lucida Console","Courier New",monospace;
-font-size:10pt;font-weight:bold}
-.online,.crypt,.plainText, .plainArea, .maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
+.secret{background-color:#bbb}
+.secretTxt{background-color:#333;color:#fff;font-size:10pt;font-weight:bold;
+font-family:"Lucida Console","Courier New",monospace}
+.online,.crypt,.secret,.secretTxt,.maxWidth{-moz-border-radius:5px;-webkit-border-radius:5px}
 .legend{text-shadow:#777 1px 1px 2px}
 .formLabel{font-weight:bold;font-size:80%;text-shadow:white 1px 1px 0.5px}
-.maxWidth ,.plainArea{width:99%}
+.maxWidth ,.secretTxt{width:99%}
 .noScrollBar{overflow-y:hidden}
 .pbResult{width:99%;height:40px;border:none}
 .head{font-weight:bold;text-align:center;font-size:120%}
@@ -229,8 +228,8 @@ readonly="readonly" onclick="this.select()"></textarea></div>
 <iframe class="pbResult" id="pb_result" name="pb_result"></iframe></div></div></form></div></div></div>
 </div></div>
 <div class="main">
-<div class="line"><div class="unit size1of1 plainText lastUnit">
+<div class="line"><div class="unit size1of1 secret lastUnit">
 <div class="formLabel">Secret:</div>
-<textarea tabindex="4" cols="23" rows="22" id="plaintext" class="plainArea"></textarea></div></div></div></div></div>
+<textarea tabindex="4" cols="23" rows="22" id="plaintext" class="secretTxt"></textarea></div></div></div></div></div>
 </body>
 </html>
