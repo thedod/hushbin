@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>HushBin - Tweetable secrets</title>
 <style type="text/css">
 /*<![CDATA[*/
 /* Based on http://oocss.org */
-body{font-family:"Myriad Pro","Segoe UI",Helvetica, Arial, sans-serif;}
-body{_text-align:center;}/* IE5.5 */
-.main{display:table-cell;*display:block;width:auto;}
-.leftCol{float:left;width:250px;_margin-right:-3px;}
-.rightCol{float:right;width:300px;_margin-left:-3px;}
-.body,.main{*zoom:1;}
-.body:after,.main:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.page{margin:0 auto;width:950px;_text-align:left;} /* wraps other template elems to set width */ /* text-align IE5.5 */
-@media screen and (max-width: 319px){.unit{float: none !important; width: auto !important;}}
-.line:after,.lastUnit:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.line{*zoom:1;}
-.unit{float:left;}
-.size1of1{float:none;}
-.lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
+body{font-family:"Myriad Pro","Segoe UI",Helvetica, Arial, sans-serif}
+body{_text-align:center}/* IE5.5 */
+.main{display:table-cell;*display:block;width:auto}
+.leftCol{float:left;width:250px;_margin-right:-3px}
+.rightCol{float:right;width:300px;_margin-left:-3px}
+.body,.main{*zoom:1}
+.body:after,.main:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x "}
+.page{margin:0 auto;width:950px;_text-align:left} /* wraps other template elems to set width */ /* text-align IE5.5 */
+@media screen and (max-width: 319px){.unit{float: none !important; width: auto !important}}
+.line:after,.lastUnit:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x "}
+.line{*zoom:1}
+.unit{float:left}
+.size1of1{float:none}
+.lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px}
 /* Own overrides */
 .page{width:auto;font-size:16px}
 .leftCol,.rightCol{width:300px}
-.unit{margin:2px;padding: 4px;}
+.unit{margin:2px;padding: 4px}
 /* Own styles */
 a{text-decoration:none;color:#090}
 a:hover{text-decoration:underline}
@@ -51,8 +51,8 @@ DEMOCIPHER='VVWx4eRIwZmo1/nO301CH/qkndNWmzaXkhfQXKSpnb5wpcL6zgmftvdq4XahyxRy0O+T
 function str2bin(s){
 // utf-16=>utf-8=>bin-array
 var result=new Array();
-var c; var i; var j;
-for (i=0,j=0 ; i<s.length ; i++){
+var c;var i;var j;
+for (i=0,j=0;i<s.length;i++){
 c=s.charCodeAt(i);
 if (c<128){
 result[j++]=c} else if (c<2048){ // 2 byte utf-8
@@ -64,7 +64,7 @@ result[j++]=(c&63)|128}}
 return result}
 function bin2str(bin){
 // reverse of str2bin
-var result=''; var i=0;
+var result='';var i=0;
 while(i<bin.length){
 if (bin[i]<128){
 result+=String.fromCharCode(bin[i]);
@@ -95,7 +95,7 @@ var shift=0;
 var leftover=0;
 var lookup;
 var index=0;
-for (var i=0; i<s.length; i++){
+for (var i=0;i<s.length;i++){
 lookup=base64lookup.indexOf(s.charAt(i));
 if (lookup>=0){ // skip whitespace
 if (shift){
@@ -114,20 +114,19 @@ function _cs2(key, bin){
 // RC4 part of cs2 (key should contain iv)
 var i, j, temp;
 s=new Array();
-for (i=0; i<256; i++)
-s[i]=i;
-j=0;
-for (var k=0 ; k<20 ; k++){
-for (i=0; i<256; i++){
-j=(key[i % key.length] + s[i] + j) & 255;
-temp=s[i]; s[i]=s[j]; s[j]=temp}}
+for (i=0;i<256;i++)
+s[i]=i;j=0;
+for (var k=0;k<20;k++){
+for (i=0;i<256;i++){
+j=(key[i % key.length]+s[i]+j) & 255;
+temp=s[i];s[i]=s[j];s[j]=temp}}
 var result=new Array(bin.length);
-j=0; i=0;
-for (var index=0; index<bin.length; index++){
+j=0;i=0;
+for (var index=0;index<bin.length;index++){
 i=(i+1) & 255
-j=(s[i] + j) & 255;
-temp=s[i]; s[i]=s[j]; s[j]=temp;
-result[index]=bin[index] ^ s[(s[i] + s[j]) & 255]}
+j=(s[i]+j) & 255;
+temp=s[i];s[i]=s[j];s[j]=temp;
+result[index]=bin[index]^s[(s[i]+s[j])&255]}
 return result}
 //== "exportable" crypto functions ==
 // CipherSaber 2 algorithm with N=20
@@ -171,64 +170,69 @@ return false}
 // kb handlers
 function nop(){return false};
 function if_enter(e,f){var k=0;if (window.event)k=window.event.keyCode;else if (e)k=e.which;
-if (k==13){return f() && false}; return true}
+if (k==13){return f() && false};return true}
 // onload
 function init(){
 $$('pb_form').target='pb_result';linx=document.getElementsByTagName('a');
-for (i in linx){l=linx[i]; if (l.href && !l.href.match('#'))l.target='_blank'}}
+for (i in linx){l=linx[i];if (l.href && !l.href.match('#'))l.target='_blank'}}
 //]]>
 </script>
 </head>
 <body onload="init()">
 <div class="page">
-<div class="head">
-HushBin &#8212; Tweetable secrets</div>
+<div class="head">HushBin &mdash; Tweetable secrets</div>
 <div class="body">
 <div class="leftCol">
-<div class="line"><div class="unit crypt lastUnit">
+<div class="line">
+<div class="unit crypt lastUnit">
 <div class="legend">Read a secret</div>
-<div class="line"><div class="unit online lastUnit">
-<strong><a href="http://wiki.github.com/thedod/hushbin/">Instructions are here</a></strong>. Here's a quick demo:<br/>
-<input type="button" onclick="demo()" value="Paste demo encrypted secret &#8628;"/>
-</div></div>
+<div class="line">
+<div class="unit online lastUnit"><strong><a href="http://wiki.github.com/thedod/hushbin/">Instructions are
+here</a></strong>. Here's a quick demo:<br>
+<input type="button" onclick="demo()" value="Paste demo encrypted secret &#8628;"></div></div>
 <div class="line">
 <div class="unit lastUnit">
-<div class="formLabel">
-&#9660; Encrypted input:</div>
+<div class="formLabel">&#9660; Encrypted input:</div>
 <div>
 <textarea tabindex="1" id="in-cipher" cols="5" rows="3" class="maxWidth noScrollBar" onclick="this.select()"></textarea></div>
 <div class="formLabel">Pass phrase:</div>
-<div><input tabindex="2" class="maxWidth" type="password" id="in-key" onkeypress="if_enter(event,do_decrypt)"/></div>
-<div class="decButton">
-<input tabindex="3" onclick="do_decrypt()" type="button" value="&#8627; Decrypt &#9654;"/></div></div></div></div></div></div>
+<div><input tabindex="2" class="maxWidth" type="password" id="in-key" onkeypress="if_enter(event,do_decrypt)"></div>
+<div class="decButton"><input tabindex="3" onclick="do_decrypt()"
+type="button" value="&#8627; Decrypt &#9654;"></div></div></div></div></div></div>
 <div class="rightCol">
 <div class="line">
-<div class="unit size1of1 lastUnit"><strong>Warning:</strong> Before encrypting any <em>real</em> secrets, read the <a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div></div>
+<div class="unit size1of1 lastUnit"><strong>Warning:</strong>
+Before encrypting any <em>real</em> secrets, read the
+<a href="http://wiki.github.com/thedod/hushbin/">Instructions</a>.</div></div>
 <div class="line"><div class="unit size1of1 lastUnit crypt">
 <div class="legend">Write a secret</div>
-<div class="line"><div class="unit size1of1 lastUnit">
-<div class="formLabel">
-<a href="http://wiki.github.com/thedod/hushbin/strong-pass-phrases">Strong</a> pass phrase:</div>
-<div><input tabindex="5" class="maxWidth" type="password" id="out-key"/></div>
+<div class="line">
+<div class="unit size1of1 lastUnit">
+<div class="formLabel"><a href="http://wiki.github.com/thedod/hushbin/strong-pass-phrases">Strong</a>
+pass phrase:</div>
+<div><input tabindex="5" class="maxWidth" type="password" id="out-key"></div>
 <div class="formLabel">Verify pass phrase:</div>
 <div><input tabindex="6" class="maxWidth" type="password" id="out-key-verify"
-onkeypress="return if_enter(event,do_encrypt)"/></div>
-<div class="encButton">
-<input tabindex="7" onclick="do_encrypt()" type="button" value="&#9654; Encrypt &#8628;"/></div></div></div>
-<div class="line"><div class="unit size1of1 lastUnit">
+onkeypress="return if_enter(event,do_encrypt)"></div>
+<div class="encButton"><input tabindex="7" onclick="do_encrypt()"
+type="button" value="&#9654; Encrypt &#8628;"></div></div></div>
+<div class="line">
+<div class="unit size1of1 lastUnit">
 <form id="pb_form" method="post" action="http://pastebin.com/api_public.php" onkeypress="return if_enter(event,nop)" onsubmit="return validate_pastebin_form()" name="pb_form">
 <div class="formLabel">&#9660; Encrypted output:</div>
-<div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5" rows="3" class="maxWidth noScrollBar"
-readonly="readonly" onclick="this.select()"></textarea></div>
-<div class="line"><div class="unit size1of1 online lastUnit">
-<input type="hidden" name="paste_name" value="bit.ly/hushbin"/>
-<input type="hidden" name="paste_private" value="1"/>
-<div class="pbButton"><input tabindex="9" id="pastebin_button" type="submit" value="&#9660; Create a tweetable pastebin"/></div>
-<iframe class="pbResult" id="pb_result" name="pb_result"></iframe></div></div></form></div></div></div>
-</div></div>
+<div><textarea tabindex="8" name="paste_code" id="out-cipher" cols="5"
+rows="3" class="maxWidth noScrollBar" readonly="readonly" onclick="this.select()"></textarea></div>
+<div class="line"><div class="unit size1of1 online lastUnit"><input type="hidden"
+name="paste_name" value="bit.ly/hushbin"> <input type="hidden"
+name="paste_private" value="1">
+<div class="pbButton"><input tabindex="9" id="pastebin_button"
+type="submit" value="&#9660; Create a tweetable pastebin"></div>
+<iframe class="pbResult" id="pb_result" name="pb_result"></iframe></div></div>
+</form></div></div></div></div></div>
 <div class="main">
 <div class="line"><div class="unit size1of1 secret lastUnit">
 <div class="formLabel">Secret:</div>
-<textarea tabindex="4" cols="23" rows="21" id="plaintext" class="secretTxt"></textarea></div></div></div></div></div>
+<textarea tabindex="4" cols="23" rows="21" id="plaintext" class="secretTxt"></textarea>
+</div></div></div></div></div>
 </body>
 </html>
