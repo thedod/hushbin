@@ -1,20 +1,16 @@
-h3. HushBin - Secrets you can tweet
+h3. HushBin - Tweetable secrets
 
 "HushBin":http://thedod.github.com/hushbin/ is a self-contained single page javascript app for symmetric cryptograhy (RC4, essentially). It also has "pastebin":http://pastebin.com integration.
-This enables wide distribution of short-term secrets (e.g. “where’s the next flash mob”) and can work nicely with twitter and other social networks.
-Of course – social networks are not a place for anything too secret (sooner or later someone would blurb the password), but it’s good enough for “where’s the next flash mob” or “who’s buying cake for the boss’s surprise party” kinda secrets. Secrets that have a short expiry date and no serious harm done if they’re compromised sooner.
+This enables wide distribution of short-term secrets (gossip, surprise parties, etc.) and can work nicely with twitter and other social networks.
 
 See "demo":http://thedod.github.com/hushbin/ and "documentation":http://wiki.github.com/thedod/hushbin/
 
 h3. Project related gossip
 
-Whenever I commit, _index.html_ is Less than 10K. This is because I want to submit it (before 25th of August) to the "10K apart":http://10k.aneventapart.com/ competition.
+I'm submitting HushBin to the "10K apart":http://10k.aneventapart.com/ competition. This means that Whenever I commit, _index.html_ is Less than 10K. This is why it's somewhat minimized (mainly there are no indentations) but it's still readable and somewhat documented :).
+_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable.
 
-The file _index.html_ is somewhat minimized (mainly there are no indentations) but it's still readable.
-There are comments, long identifiers, and additional fluff in case there's need for some extra bytes.
-_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable, but the master is _index.html_.
-
-h3. [Hopefully,] W3C HTML validation:
+h3. W3C HTML validation:
 
 * "HTML5":http://validator.w3.org/check?uri=http%3A%2F%2Fthedod.github.com%2Fhushbin%2F
 * "HTML 4.01 Transitional":http://validator.w3.org/check?uri=http%3A%2F%2Fthedod.github.com%2Fhushbin%2F&doctype=HTML+4.01+Transitional

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Security note: The string "src" should only appear inside this comment :) -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>HushBin - Tweetable secrets</title>
 <style type="text/css">
@@ -20,11 +21,11 @@ body{_text-align:center}/* IE5.5 */
 .unit{float:left}
 .size1of1{float:none}
 .lastUnit{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px}
-/* Own overrides */
+/* My overrides */
 .page{width:auto;font-size:16px}
 .leftCol,.rightCol{width:300px}
 .unit{margin:2px;padding: 4px}
-/* Own styles */
+/* My styles */
 a{text-decoration:none;color:#090}
 a:hover{text-decoration:underline}
 p{padding:0;margin:0 0 4px 0}
@@ -69,10 +70,10 @@ while(i<bin.length){
 if (bin[i]<128){
 result+=String.fromCharCode(bin[i]);
 i++} else if ((bin[i]>191) && (bin[i]<224)){
-result+=String.fromCharCode(((bin[i]&31)<<6) | (bin[i+1]&63));
+result+=String.fromCharCode(((bin[i]&31)<<6)|(bin[i+1]&63));
 i+=2} else {
 result+=String.fromCharCode(
-((bin[i]&15)<<12) | ((bin[i+1]&63)<<6) | (bin[i+2]&63));
+((bin[i]&15)<<12)|((bin[i+1]&63)<<6)|(bin[i+2]&63));
 i+=3}}
 return result}
 base64lookup="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=";
@@ -82,10 +83,10 @@ var res='';
 var shift=0;
 var leftover=0;
 for (var i=0;i<len;i++){
-res+=base64lookup.charAt((bin[i]<<shift | leftover) & 63);
+res+=base64lookup.charAt((bin[i]<<shift|leftover) & 63);
 leftover=bin[i]>>(6-shift);
 shift+=2;
-if (shift==6 || i==len-1){res+=base64lookup.charAt(leftover);shift=0;leftover=0};
+if (shift==6||i==len-1){res+=base64lookup.charAt(leftover);shift=0;leftover=0};
 if (i && !(i%60))res+='\r\n'}
 return res}
 function base64Decode(s){
@@ -99,7 +100,7 @@ for (var i=0;i<s.length;i++){
 lookup=base64lookup.indexOf(s.charAt(i));
 if (lookup>=0){ // skip whitespace
 if (shift){
-res[index++]=(lookup<<(8-shift) & 255) | leftover}
+res[index++]=(lookup<<(8-shift) & 255)|leftover}
 leftover=lookup>>shift;
 shift=(shift+2)%8}}
 return res}
