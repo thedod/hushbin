@@ -7,8 +7,11 @@ See "demo":http://thedod.github.com/hushbin/ and "documentation":http://wiki.git
 
 h3. Project related gossip
 
-I'm submitting HushBin to the "10K apart":http://10k.aneventapart.com/ competition. This means that Whenever I commit, _index.html_ is Less than 10K. This is why it's somewhat minimized (mainly there are no indentations) but it's still readable and somewhat documented :).
-_tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable.
+* _HushBin_ was designed in order to be submitted to the "10K apart":http://10k.aneventapart.com/ competition, so I've kept _index.html_ without indentations in order to stay < 10K[1].
+  Anyway - now you can vote for _HushBin_ "at the 10K Appart contest":http://10k.aneventapart.com/entry/112
+
+* "*Sealed with a Tweet*":http://swatwt.com is the next generation of _HushBin_. More friendly and less geeky [I hope].
+  The project is "here":http://github.com/thedod/SwaTwt/
 
 h3. W3C HTML validation:
 
@@ -17,3 +20,7 @@ h3. W3C HTML validation:
 
 Cheers,
 "@TheRealDod":http://twitter.com/TheRealDod
+
+----
+
+fn1. _tidy.html_ (about 12K) is the same thing after going throuh <code>tidy -i</code> and is more readable.
